@@ -1,0 +1,387 @@
+                                           The SAS System        17:01 Thursday, August 12, 2010   1
+
+                                       The CONTENTS Procedure
+
+Data Set Name        MORN.PORTFOLIO_TYPE_CODES                             Observations          119
+Member Type          DATA                                                  Variables             2  
+Engine               V9                                                    Indexes               0  
+Created              Friday, July 23, 2010 02:02:28 AM                     Observation Length    41 
+Last Modified        Friday, July 23, 2010 02:02:28 AM                     Deleted Observations  0  
+Protection                                                                 Compressed            NO 
+Data Set Type                                                              Sorted                NO 
+Label                portfolio_type_codes dataset written                                           
+                     by Stat/Transfer Ver. 10.1.1705.0705                                           
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+Data Representation  WINDOWS_64                                                                     
+Encoding             wlatin1  Western (Windows)                                                     
+
+
+                                 Engine/Host Dependent Information
+
+      Data Set Page Size          4096                                                       
+      Number of Data Set Pages    2                                                          
+      First Data Page             1                                                          
+      Max Obs per Page            99                                                         
+      Obs in First Data Page      67                                                         
+      Number of Data Set Repairs  0                                                          
+      Filename                    /largefs/jabloche/morningstar/portfolio_type_codes.sas7bdat
+      Release Created             9.0000M0                                                   
+      Host Created                WIN                                                        
+      Inode Number                3444562                                                    
+      Access Permission           rw-r--r--                                                  
+      Owner Name                  jabloche                                                   
+      File Size (bytes)           9216                                                       
+
+
+                             Alphabetic List of Variables and Attributes
+ 
+                                    #    Variable    Type    Len
+
+                                    1    C1          Char      9
+                                    2    C2          Char     32
+                                           The SAS System        17:01 Thursday, August 12, 2010   2
+
+                        Obs    C1           C2
+
+                          1    Type Code    Name                            
+                          2    0            Muni Bond                       
+                          3    1            Muni Bond - Gen Oblig           
+                          4    10           Muni Bond - Prvt Activity       
+                          5    11           Muni Bond - Non-Specific        
+                          6    2            Muni Bond - Utility             
+                          7    3            Muni Bond - Health              
+                          8    4            Muni Bond - Water/Waste         
+                          9    5            Muni Bond - Housing             
+                         10    6            Muni Bond - School              
+                         11    7            Muni Bond - Trans               
+                         12    8            Muni Bond - Demand Nts          
+                         13    9            Muni Bond - COP/Lease           
+                         14    B            Bond                            
+                         15    BA           Bond - Adjust Rate Mrtg         
+                         16    BC           Bond - Cnvrtbl                  
+                         17    BD           Bond - Gov Agcy Debt            
+                         18    BE           Bond - Gov Agcy Debt FRN        
+                         19    BF           Bond - FRN                      
+                         20    BG           Bond - Gov Agcy Pthru           
+                         21    BH           Bond - Corp Passthru            
+                         22    BI           Bond - Prvt/Illqd -144A         
+                         23    BJ           Bond - Corp Passthru FRN        
+                         24    BK           Bond - Gov Agcy Pthru FRN       
+                         25    BL           Bond Index - Future             
+                         26    BM           Bond - CMO                      
+                         27    BN           Bond - Inv FRN                  
+                         28    BO           Bond Index  - Opt -Call         
+                         29    BP           Bond Index - Opt -Put           
+                         30    BQ           Bond - Other                    
+                         31    BR           Bank Loans                      
+                         32    BS           Bond - Shorted                  
+                         33    BT           Bond - US Treasury              
+                         34    BU           Bond - Units                    
+                         35    BV           Bond - Passthru                 
+                         36    BW           Bond - Wrnts/Rts -Call          
+                         37    BX           Bond - Wrnts/Rts -Put           
+                         38    BY           Bond - Asset Backed             
+                         39    C            Cash                            
+                         40    CB           Cash - Bond                     
+                         41    CC           Cash - Currency Opt -Call       
+                         42    CD           Cash - CD/Time Deposit          
+                         43    CF           Bond - Cnvrtbl FRN              
+                         44    CH           Cash - Currency                 
+                         45    CI           Bond - Cnvrtbl -144A            
+                         46    CL           Cash - Currency Future          
+                         47    CO           Cash - Currency Opt -Put        
+                         48    CP           Cash - Commercial Paper         
+                         49    CQ           Future Offset - Cash            
+                         50    CR           Cash - Repurchase Agreement     
+                         51    CS           Currency - Swap                 
+                         52    CT           Cash - T-Bill                   
+                         53    CU           Cash - Currency Fwd             
+                         54    CV           Currency - Wrnts/Rts -Call      
+                         55    CX           Currency - Wrnts/Rts -Put       
+                         56    DA           Bond - Future                   
+                         57    DB           Bond - Option -Call             
+                         58    DC           Commodity Option Call           
+                         59    DD           Commodity                       
+                         60    DE           Bond - Option -Put              
+                         61    DF           Bond - Debenture FRN            
+                         62    DG           Equity - Future                 
+                         63    DH           Equity - Option -Call           
+                         64    DI           Equity - Option -Put            
+                         65    DJ           Other - Future                  
+                         66    DM           Commodity Future                
+                         67    DP           Commodity Option Put            
+                         68    E            Stock                           
+                         69    EC           Equity Index - Opt -Call        
+                         70    EI           Stock - Prvt/Illqd -144A        
+                         71    EL           Equity Index - Future           
+                         72    EP           Equity Index - Opt -Put         
+                         73    EQ           Equity - Other                  
+                         74    ER           Stock - REIT                    
+                         75    ES           Equity - Shorted                
+                         76    EU           Stock - Units                   
+                         77    EV           Equity - Wrnts/Rts -Put         
+                         78    EW           Equity - Wrnts/Rts -Call        
+                         79    EX           Mutual Fund -Unspecified        
+                         80    FC           Mutual Fund -CE                 
+                         81    FE           Mutual Fund -ETF                
+                         82    FM           Mutual Fund -MMkt               
+                         83    FO           Mutual Fund -OE                 
+                         84    FT           Bond - Treasury -Non-US         
+                         85    FV           Mutual Fund -VA                 
+                         86    IF           Bond - Prvt/Illqd -144A  FRN    
+                         87    IN           Bond - Prvt/Illqd -144A  Inv FRN
+                         88    IP           Bond - Inflation Protected      
+                         89    IT           Income Trust                    
+                         90    MF           Bond - CMO FRN                  
+                         91    MI           Bond - CMO -144A                
+                         92    MN           Bond - CMO Inv FRN              
+                         93    MQ           Bond - CMO I/O Inv FRN          
+                         94    MU           Bond - CMO I/O                  
+                         95    MV           Bond - CMO P/O                  
+                         96    MX           Bond - CMO I/O FRN              
+                         97    OO           Cash - Option Offset            
+                         98    OS           Cash - Swap Offset              
+                         99    OT           Cash - Forward Offset           
+                        100    P            Preferred                       
+                        101    PA           Preferred - Cnvrtbl -144A       
+                        102    PC           Preferred - Cnvrtbl             
+                        103    PI           Preferred - 144A                
+                        104    PK           Preferred - ARP                 
+                        105    PP           Property                        
+                        106    Q            Undefined Holding               
+                        107    QQ           Other Assets and Liabilities    
+                        108    SA           Asset Swap                      
+                        109    SC           Commingled Trust/Pool           
+                        110    SD           Debt - Swap                     
+                        111    SE           Equity - Swap                   
+                        112    SI           Interest-Rate Swap              
+                        113    SQ           Equity-Index Swap               
+                        114    SR           Credit Default Swap             
+                        115    ST           Total-Return Swap               
+                        116    SV           Stable Value                    
+                        117    TP           Bond - TIPS                     
+                        118    WR           Wrnts/Rts - Other               
+                        119    YF           Bond - Asset Backed FRN         
+                                           The SAS System        17:01 Thursday, August 12, 2010   3
+
+                                       The CONTENTS Procedure
+
+Data Set Name        MORN.PORTFOLIO_TYPE_CODES_RENAMED                     Observations          118
+Member Type          DATA                                                  Variables             2  
+Engine               V9                                                    Indexes               0  
+Created              Thursday, August 12, 2010 05:01:42 PM                 Observation Length    41 
+Last Modified        Thursday, August 12, 2010 05:01:42 PM                 Deleted Observations  0  
+Protection                                                                 Compressed            NO 
+Data Set Type                                                              Sorted                NO 
+Label                                                                                               
+Data Representation  SOLARIS_X86_64, LINUX_X86_64,                                                  
+                     ALPHA_TRU64, LINUX_IA64                                                        
+Encoding             latin1  Western (ISO)                                                          
+
+
+                                 Engine/Host Dependent Information
+
+  Data Set Page Size          8192                                                               
+  Number of Data Set Pages    1                                                                  
+  First Data Page             1                                                                  
+  Max Obs per Page            198                                                                
+  Obs in First Data Page      118                                                                
+  Number of Data Set Repairs  0                                                                  
+  Filename                    /largefs/jabloche/morningstar/portfolio_type_codes_renamed.sas7bdat
+  Release Created             9.0201M0                                                           
+  Host Created                Linux                                                              
+  Inode Number                420867                                                             
+  Access Permission           rw-r-----                                                          
+  Owner Name                  jabloche                                                           
+  File Size (bytes)           16384                                                              
+
+
+                             Alphabetic List of Variables and Attributes
+ 
+                          #    Variable     Type    Len    Label
+
+                          1    type_cd      Char      9    Asset Type Code
+                          2    type_name    Char     32    Asset Type Name
+                                           The SAS System        17:01 Thursday, August 12, 2010   4
+
+                         Obs    type_cd    type_name
+
+                           1      0        Muni Bond                       
+                           2      1        Muni Bond - Gen Oblig           
+                           3      10       Muni Bond - Prvt Activity       
+                           4      11       Muni Bond - Non-Specific        
+                           5      2        Muni Bond - Utility             
+                           6      3        Muni Bond - Health              
+                           7      4        Muni Bond - Water/Waste         
+                           8      5        Muni Bond - Housing             
+                           9      6        Muni Bond - School              
+                          10      7        Muni Bond - Trans               
+                          11      8        Muni Bond - Demand Nts          
+                          12      9        Muni Bond - COP/Lease           
+                          13      B        Bond                            
+                          14      BA       Bond - Adjust Rate Mrtg         
+                          15      BC       Bond - Cnvrtbl                  
+                          16      BD       Bond - Gov Agcy Debt            
+                          17      BE       Bond - Gov Agcy Debt FRN        
+                          18      BF       Bond - FRN                      
+                          19      BG       Bond - Gov Agcy Pthru           
+                          20      BH       Bond - Corp Passthru            
+                          21      BI       Bond - Prvt/Illqd -144A         
+                          22      BJ       Bond - Corp Passthru FRN        
+                          23      BK       Bond - Gov Agcy Pthru FRN       
+                          24      BL       Bond Index - Future             
+                          25      BM       Bond - CMO                      
+                          26      BN       Bond - Inv FRN                  
+                          27      BO       Bond Index  - Opt -Call         
+                          28      BP       Bond Index - Opt -Put           
+                          29      BQ       Bond - Other                    
+                          30      BR       Bank Loans                      
+                          31      BS       Bond - Shorted                  
+                          32      BT       Bond - US Treasury              
+                          33      BU       Bond - Units                    
+                          34      BV       Bond - Passthru                 
+                          35      BW       Bond - Wrnts/Rts -Call          
+                          36      BX       Bond - Wrnts/Rts -Put           
+                          37      BY       Bond - Asset Backed             
+                          38      C        Cash                            
+                          39      CB       Cash - Bond                     
+                          40      CC       Cash - Currency Opt -Call       
+                          41      CD       Cash - CD/Time Deposit          
+                          42      CF       Bond - Cnvrtbl FRN              
+                          43      CH       Cash - Currency                 
+                          44      CI       Bond - Cnvrtbl -144A            
+                          45      CL       Cash - Currency Future          
+                          46      CO       Cash - Currency Opt -Put        
+                          47      CP       Cash - Commercial Paper         
+                          48      CQ       Future Offset - Cash            
+                          49      CR       Cash - Repurchase Agreement     
+                          50      CS       Currency - Swap                 
+                          51      CT       Cash - T-Bill                   
+                          52      CU       Cash - Currency Fwd             
+                          53      CV       Currency - Wrnts/Rts -Call      
+                          54      CX       Currency - Wrnts/Rts -Put       
+                          55      DA       Bond - Future                   
+                          56      DB       Bond - Option -Call             
+                          57      DC       Commodity Option Call           
+                          58      DD       Commodity                       
+                          59      DE       Bond - Option -Put              
+                          60      DF       Bond - Debenture FRN            
+                          61      DG       Equity - Future                 
+                          62      DH       Equity - Option -Call           
+                          63      DI       Equity - Option -Put            
+                          64      DJ       Other - Future                  
+                          65      DM       Commodity Future                
+                          66      DP       Commodity Option Put            
+                          67      E        Stock                           
+                          68      EC       Equity Index - Opt -Call        
+                          69      EI       Stock - Prvt/Illqd -144A        
+                          70      EL       Equity Index - Future           
+                          71      EP       Equity Index - Opt -Put         
+                          72      EQ       Equity - Other                  
+                          73      ER       Stock - REIT                    
+                          74      ES       Equity - Shorted                
+                          75      EU       Stock - Units                   
+                          76      EV       Equity - Wrnts/Rts -Put         
+                          77      EW       Equity - Wrnts/Rts -Call        
+                          78      EX       Mutual Fund -Unspecified        
+                          79      FC       Mutual Fund -CE                 
+                          80      FE       Mutual Fund -ETF                
+                          81      FM       Mutual Fund -MMkt               
+                          82      FO       Mutual Fund -OE                 
+                          83      FT       Bond - Treasury -Non-US         
+                          84      FV       Mutual Fund -VA                 
+                          85      IF       Bond - Prvt/Illqd -144A  FRN    
+                          86      IN       Bond - Prvt/Illqd -144A  Inv FRN
+                          87      IP       Bond - Inflation Protected      
+                          88      IT       Income Trust                    
+                          89      MF       Bond - CMO FRN                  
+                          90      MI       Bond - CMO -144A                
+                          91      MN       Bond - CMO Inv FRN              
+                          92      MQ       Bond - CMO I/O Inv FRN          
+                          93      MU       Bond - CMO I/O                  
+                          94      MV       Bond - CMO P/O                  
+                          95      MX       Bond - CMO I/O FRN              
+                          96      OO       Cash - Option Offset            
+                          97      OS       Cash - Swap Offset              
+                          98      OT       Cash - Forward Offset           
+                          99      P        Preferred                       
+                         100      PA       Preferred - Cnvrtbl -144A       
+                         101      PC       Preferred - Cnvrtbl             
+                         102      PI       Preferred - 144A                
+                         103      PK       Preferred - ARP                 
+                         104      PP       Property                        
+                         105      Q        Undefined Holding               
+                         106      QQ       Other Assets and Liabilities    
+                         107      SA       Asset Swap                      
+                         108      SC       Commingled Trust/Pool           
+                         109      SD       Debt - Swap                     
+                         110      SE       Equity - Swap                   
+                         111      SI       Interest-Rate Swap              
+                         112      SQ       Equity-Index Swap               
+                         113      SR       Credit Default Swap             
+                         114      ST       Total-Return Swap               
+                         115      SV       Stable Value                    
+                         116      TP       Bond - TIPS                     
+                         117      WR       Wrnts/Rts - Other               
+                         118      YF       Bond - Asset Backed FRN         
+                                           The SAS System        17:01 Thursday, August 12, 2010   5
+
+                                       The CONTENTS Procedure
+
+Data Set Name        MORN.SECTOR_CODES                                      Observations          12
+Member Type          DATA                                                   Variables             2 
+Engine               V9                                                     Indexes               0 
+Created              Thursday, August 12, 2010 05:01:42 PM                  Observation Length    32
+Last Modified        Thursday, August 12, 2010 05:01:42 PM                  Deleted Observations  0 
+Protection                                                                  Compressed            NO
+Data Set Type                                                               Sorted                NO
+Label                                                                                               
+Data Representation  SOLARIS_X86_64, LINUX_X86_64, ALPHA_TRU64, LINUX_IA64                          
+Encoding             latin1  Western (ISO)                                                          
+
+
+                                 Engine/Host Dependent Information
+
+          Data Set Page Size          8192                                               
+          Number of Data Set Pages    1                                                  
+          First Data Page             1                                                  
+          Max Obs per Page            253                                                
+          Obs in First Data Page      12                                                 
+          Number of Data Set Repairs  0                                                  
+          Filename                    /largefs/jabloche/morningstar/sector_codes.sas7bdat
+          Release Created             9.0201M0                                           
+          Host Created                Linux                                              
+          Inode Number                420870                                             
+          Access Permission           rw-r-----                                          
+          Owner Name                  jabloche                                           
+          File Size (bytes)           16384                                              
+
+
+                            Alphabetic List of Variables and Attributes
+ 
+                                  #    Variable       Type    Len
+
+                                  2    sector_code    Num       8
+                                  1    sector_name    Char     20
+                                           The SAS System        17:01 Thursday, August 12, 2010   6
+
+                                                              sector_
+                               Obs    sector_name               code
+
+                                 1    Software                    1  
+                                 2    Hardware                    2  
+                                 3    Media                       3  
+                                 4    Telecommunication           4  
+                                 5    Healthcare                  5  
+                                 6    Consumer Service            6  
+                                 7    Business Service            7  
+                                 8    Financial Service           8  
+                                 9    Consumer Goods              9  
+                                10    Industrial Materials       10  
+                                11    Energy                     11  
+                                12    Utilities                  12  

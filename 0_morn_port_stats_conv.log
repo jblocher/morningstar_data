@@ -1,0 +1,216 @@
+1                                                          The SAS System                              17:08 Monday, August 16, 2010
+
+NOTE: Unable to open SASUSER.REGSTRY. WORK.REGSTRY will be opened instead.
+NOTE: All registry changes will be lost at the end of the session.
+
+WARNING: Unable to copy SASUSER registry to WORK registry. Because of this, you will not see registry customizations during this 
+         session.
+NOTE: Copyright (c) 2002-2008 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) Proprietary Software 9.2 (TS1M0) 
+      Licensed to UNIVERSITY OF NORTH CAROLINA CHAPEL HILL - T&R, Site 0070084073.
+NOTE: This session is executing on the Linux 2.6.18-194.el5 platform.
+
+
+
+You are running SAS 9. Some SAS 8 files will be automatically converted 
+by the V9 engine; others are incompatible.  Please see 
+http://support.sas.com/rnd/migration/planning/platform/64bit.html
+
+PROC MIGRATE will preserve current SAS file attributes and is 
+recommended for converting all your SAS libraries from any 
+SAS 8 release to SAS 9.  For details and examples, please see
+http://support.sas.com/rnd/migration/index.html
+
+
+This message is contained in the SAS news file, and is presented upon
+initialization.  Edit the file "news" in the "misc/base" directory to
+display site-specific news and information in the program log.
+The command line option "-nonews" will prevent this display.
+
+
+
+
+NOTE: SAS initialization used:
+      real time           0.99 seconds
+      cpu time            0.01 seconds
+      
+1          /* **********************************************************************************/
+2          /* CREATED BY:      Jesse Blocher (UNC-Chapel Hill)
+3          /* MODIFIED BY:
+4          /* DATE CREATED:    Aug 2010
+5          /* PROG NAME:       morn_port_stats_conv.sas
+6          /* Project:         Morningstar US Open Ended Funds Portfolio Data Merge
+7          /* This File:       Stats are pretty easy comparet to holdings
+8          /************************************************************************************/
+9          
+10         %include 'morn_merge_header.sas'; *header file with basic options and libraries;
+NOTE: Libref MORN was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /largefs/jabloche/morningstar
+NOTE: Libref MS_WORK was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /largefs/jabloche/ms_work
+18         %include 'morn_macros.sas'; *Macro file;
+322        /*
+323        proc contents data = morn.stat;
+324        proc print data = morn.stat(obs = 100);
+325        run;
+326        
+327        
+328                                    Alphabetic List of Variables and Attributes
+329        
+330                                            #    Variable    Type    Len
+331        
+332                                            1    Col1        Char     10
+333                                            2    Col2        Char     10
+334                                            3    Col3        Char     10
+335                                            4    Col4        Num       8
+336                                            5    Col5        Num       8
+337                                            6    Col6        Num       8
+338                                            7    Col7        Num       8
+339                                            8    Col8        Num       8
+340                                            9    Col9        Num       8
+341                                           10    Col10       Num       8
+342                                           11    Col11       Num       8
+343                                           12    Col12       Num       8
+344                                           13    Col13       Num       8
+345                                           14    Col14       Num       8
+346                                           15    Col15       Num       8
+347                                           16    Col16       Num       8
+348                                           17    Col17       Num       8
+349                                           18    Col18       Num       8
+350                                           19    Col19       Num       8
+351                                           20    Col20       Num       8
+352                                           21    Col21       Num       8
+353                                           22    Col22       Num       8
+354                                           23    Col23       Num       8
+355                                           24    Col24       Num       8
+356                                           25    Col25       Num       8
+357                                           26    Col26       Num       8
+358                                           27    Col27       Num       8
+359                                           28    Col28       Num       8
+360                                           29    Col29       Num       8
+361                                           30    Col30       Num       8
+362                                           31    Col31       Num       8
+363        
+364        Portfolio stats:
+365        Fundid;portfoliodate;previousportfoliodate;totinvestment;#holdings;equitystylebox;
+365      ! fixedincome stylebox;
+366        %stock(long);%bond(long);%preferred(long);%convertible(long);%cash(long);
+367        %other(long);%stock(net);%bond(net);%preferred(net);%convertible(net);%cash(net);
+367      ! %other(net);%sector1-12
+368        
+369        */
+370        /* OK, my paranoia has been settled - all these seemed to have imported just fine;
+371        %macro all_contents(base = , start =, finish =);
+372        	%do end = &start %to &finish;
+373        	proc contents data = &base.&end;
+374        	run;
+375        	%end;
+376        
+377        %mend;
+378        
+379        proc contents data = morn.stat1980to1992; run;
+380        %all_contents(base=morn.stat, start=1993, finish=2009);
+381        */
+382        
+383        data morn.portfolio_statistics_only (drop = col1-col31);
+384        	set morn.stat;
+NOTE: Data file MORN.STAT.DATA is in a format that is native to another host, or the file encoding 
+      does not match the session encoding. Cross Environment Data Access will be used, which might 
+      require additional CPU resources and might reduce performance.
+385        	fundid = col1;
+386        	label fundid = 'Fund ID';
+387        	
+388        	port_date = input(col2,yymmdd10.);
+389        	label port_date = 'Porfolio Date';
+390        	format port_date yymmdd10.;
+391        	
+392        	prv_port_date = input(col3,yymmdd10.);
+393        	label port_date = 'Previous Porfolio Date';
+394        	format prv_port_date yymmdd10.;
+395        
+396        	tot_investment = col4;
+397        	label tot_investment = 'Total Invesment - NAV? Port value?';
+398        	num_holdings = col5;
+399        	
+400        	eq_style_box = col6;
+401        	*if col6 = -99 then eq_style_box = .;
+402        	fi_style_box = col7;
+403        	*if col7 = -99 then fi_style_box = .;
+404        	
+405        	pct_long_stock = col8;
+406        	pct_long_bond = col9;
+407        	pct_long_preferred = col10;
+408        	pct_long_convertible = col11;
+409        	pct_long_cash = col12;
+410        	pct_long_other = col13;
+411        	
+412        	pct_net_stock = col14;
+413        	pct_net_bond = col15;
+414        	pct_net_preferred = col16;
+415        	pct_net_convertible = col17;
+416        	pct_net_cash = col18;
+417        	pct_net_other = col19;
+418        	
+419        	pct_sector_1 = col20;
+420        	pct_sector_2 = col21;
+421        	pct_sector_3 = col22;
+422        	pct_sector_4 = col23;
+423        	pct_sector_5 = col24;
+424        	pct_sector_6 = col25;
+425        	pct_sector_7 = col26;
+426        	pct_sector_8 = col27;
+427        	pct_sector_9 = col28;
+428        	pct_sector_10 = col29;
+429        	pct_sector_11 = col30;
+430        	pct_sector_12 = col31;
+431        	
+432        	
+433        run;
+
+NOTE: There were 515483 observations read from the data set MORN.STAT.
+NOTE: The data set MORN.PORTFOLIO_STATISTICS_ONLY has 515483 observations and 31 variables.
+NOTE: DATA statement used (Total process time):
+      real time           13.51 seconds
+      cpu time            1.80 seconds
+      
+
+434        
+435        proc contents data = morn.portfolio_statistics_only;
+
+NOTE: The PROCEDURE CONTENTS printed page 1.
+NOTE: PROCEDURE CONTENTS used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.02 seconds
+      
+
+436        proc print data = morn.portfolio_statistics_only (obs = 100);
+437        run;
+
+NOTE: There were 100 observations read from the data set MORN.PORTFOLIO_STATISTICS_ONLY.
+NOTE: The PROCEDURE PRINT printed page 2.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+438        
+439        * check unique key;
+440        proc sort data = morn.portfolio_statistics_only out = tester nodupkey;
+441        by fundid port_date;
+442        run;
+
+NOTE: There were 515483 observations read from the data set MORN.PORTFOLIO_STATISTICS_ONLY.
+NOTE: 0 observations with duplicate key values were deleted.
+NOTE: The data set WORK.TESTER has 515483 observations and 31 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           8.60 seconds
+      cpu time            0.75 seconds
+      
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           23.63 seconds
+      cpu time            2.60 seconds
+      

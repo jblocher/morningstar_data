@@ -1,0 +1,184 @@
+1                                                          The SAS System                            17:01 Thursday, August 12, 2010
+
+NOTE: Unable to open SASUSER.REGSTRY. WORK.REGSTRY will be opened instead.
+NOTE: All registry changes will be lost at the end of the session.
+
+WARNING: Unable to copy SASUSER registry to WORK registry. Because of this, you will not see registry customizations during this 
+         session.
+NOTE: Copyright (c) 2002-2008 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) Proprietary Software 9.2 (TS1M0) 
+      Licensed to UNIVERSITY OF NORTH CAROLINA CHAPEL HILL - T&R, Site 0070084073.
+NOTE: This session is executing on the Linux 2.6.18-194.el5 platform.
+
+
+
+You are running SAS 9. Some SAS 8 files will be automatically converted 
+by the V9 engine; others are incompatible.  Please see 
+http://support.sas.com/rnd/migration/planning/platform/64bit.html
+
+PROC MIGRATE will preserve current SAS file attributes and is 
+recommended for converting all your SAS libraries from any 
+SAS 8 release to SAS 9.  For details and examples, please see
+http://support.sas.com/rnd/migration/index.html
+
+
+This message is contained in the SAS news file, and is presented upon
+initialization.  Edit the file "news" in the "misc/base" directory to
+display site-specific news and information in the program log.
+The command line option "-nonews" will prevent this display.
+
+
+
+
+NOTE: SAS initialization used:
+      real time           0.12 seconds
+      cpu time            0.01 seconds
+      
+1          /* *************************************************************************/
+2          /* CREATED BY:      Jesse Blocher (UNC-Chapel Hill)
+3          /* MODIFIED BY:
+4          /* DATE CREATED:    July 2010
+5          /* PROG NAME:       create_aux_data.sas
+6          /* Project:         Morningstar US Open Ended Funds Portfolio Data Merge
+7          /* This File:       Converts Type Codes to real variable names, enters sector codes
+8          /************************************************************************************/
+9          
+10         %include 'morn_merge_header.sas'; *header file with basic options and libraries;
+NOTE: Libref MORN was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /largefs/jabloche/morningstar
+NOTE: Libref MS_WORK was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /largefs/jabloche/ms_work
+18         
+19         
+20         /* Datasets required to run:
+21          * morn.portfolio_type_codes		: Excel Sheet converted to SAS via Stat Transfer
+22          */
+23         
+24         /* Datasets Produced:
+25          * morn.portfolio_type_codes_renamed	: Cleaned and renamed data for use
+26          * morn.sector_codes					: Sector codes entered and small data set created
+27          */
+28         
+29         
+30         
+31         proc contents data = morn.portfolio_type_codes;
+NOTE: Data file MORN.PORTFOLIO_TYPE_CODES.DATA is in a format that is native to another host, or 
+      the file encoding does not match the session encoding. Cross Environment Data Access will be 
+      used, which might require additional CPU resources and might reduce performance.
+
+NOTE: The PROCEDURE CONTENTS printed page 1.
+NOTE: PROCEDURE CONTENTS used (Total process time):
+      real time           0.11 seconds
+      cpu time            0.03 seconds
+      
+
+32         proc print data = morn.portfolio_type_codes;
+NOTE: Data file MORN.PORTFOLIO_TYPE_CODES.DATA is in a format that is native to another host, or 
+      the file encoding does not match the session encoding. Cross Environment Data Access will be 
+      used, which might require additional CPU resources and might reduce performance.
+33         run;
+
+NOTE: There were 119 observations read from the data set MORN.PORTFOLIO_TYPE_CODES.
+NOTE: The PROCEDURE PRINT printed page 2.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+34         
+35         data morn.portfolio_type_codes_renamed (drop = c1 c2);
+36         	set morn.portfolio_type_codes;
+NOTE: Data file MORN.PORTFOLIO_TYPE_CODES.DATA is in a format that is native to another host, or 
+      the file encoding does not match the session encoding. Cross Environment Data Access will be 
+      used, which might require additional CPU resources and might reduce performance.
+37         	
+38         	*because stattransfer picked up the header row;
+39         	if c1 = 'Type Code' then delete;
+40         	
+41         	type_cd = substr(c1,1,2);
+42         	label type_cd = 'Asset Type Code';
+43         	
+44         	type_name = c2;
+45         	label type_name = 'Asset Type Name';
+46         run;
+
+NOTE: There were 119 observations read from the data set MORN.PORTFOLIO_TYPE_CODES.
+NOTE: The data set MORN.PORTFOLIO_TYPE_CODES_RENAMED has 118 observations and 2 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.07 seconds
+      cpu time            0.01 seconds
+      
+
+47         
+48         proc contents data = morn.portfolio_type_codes_renamed;
+
+NOTE: The PROCEDURE CONTENTS printed page 3.
+NOTE: PROCEDURE CONTENTS used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+49         proc print data = morn.portfolio_type_codes_renamed;
+50         run;
+
+NOTE: There were 118 observations read from the data set MORN.PORTFOLIO_TYPE_CODES_RENAMED.
+NOTE: The PROCEDURE PRINT printed page 4.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+51         
+52         data temp;
+53         	infile datalines delimiter=',';
+54            	input sector_code_char $2. sector_name $20.;
+55            	datalines;
+
+NOTE: The data set WORK.TEMP has 12 observations and 2 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+68         ;
+69         
+70         run;
+71         
+72         data morn.sector_codes (drop = sector_code_char);
+73         	set temp;
+74         	sector_code=input(sector_code_char,best8.);
+75         run;
+
+NOTE: There were 12 observations read from the data set WORK.TEMP.
+NOTE: The data set MORN.SECTOR_CODES has 12 observations and 2 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.00 seconds
+      
+
+76         
+77         proc contents data = morn.sector_codes;
+
+NOTE: The PROCEDURE CONTENTS printed page 5.
+NOTE: PROCEDURE CONTENTS used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+78         proc print data = morn.sector_codes;
+79         run;
+
+NOTE: There were 12 observations read from the data set MORN.SECTOR_CODES.
+NOTE: The PROCEDURE PRINT printed page 6.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           0.56 seconds
+      cpu time            0.08 seconds
+      

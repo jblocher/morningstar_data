@@ -1,0 +1,77 @@
+Sender: LSF System <lsfadmin@bc09-n03>
+Subject: Job 840821: <st conv_stat.stcmd> Done
+
+Job <st conv_stat.stcmd> was submitted from host <bc16-n13> by user <jabloche> in cluster <lucky>.
+Job was executed on host(s) <bc09-n03>, in queue <week>, as user <jabloche> in cluster <lucky>.
+</afs/isis.unc.edu/home/j/a/jabloche> was used as the home directory.
+</netscr/jabloche/morningstar> was used as the working directory.
+Started at Fri Jul 23 14:09:30 2010
+Results reported at Fri Jul 23 14:10:41 2010
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+st conv_stat.stcmd
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time   :     64.65 sec.
+    Max Memory :         7 MB
+    Max Swap   :       279 MB
+
+    Max Processes  :         5
+    Max Threads    :         5
+
+The output (if any) follows:
+
+Your home directory for this job is /netscr/jabloche
+Stat/Transfer (c) 1986-2009 Circle Systems, Inc.
+www.stattransfer.com 
+Version 10.1.1551.1015 - 64 Bit Linux
+
+Serial:	B2UY5-SMBQV-VQE3
+User:	Research Computing - UNC-Chapel Hill
+License Type:	Linux - Single Machine Lease
+Status:	License OK - Expires February 28, 2011
+Transferring to SAS Data File - Version Nine: /largefs/jabloche/morningstar/stat2.sas7bdat
+31 variables and 19100 records read from /largefs/jabloche/morningstar/stat1980to1992.txt
+
+31 variables and 6099 records read from /largefs/jabloche/morningstar/stat1993.txt
+
+31 variables and 7479 records read from /largefs/jabloche/morningstar/stat1994.txt
+
+31 variables and 7995 records read from /largefs/jabloche/morningstar/stat1995.txt
+
+31 variables and 7819 records read from /largefs/jabloche/morningstar/stat1996.txt
+
+31 variables and 10363 records read from /largefs/jabloche/morningstar/stat1997.txt
+
+31 variables and 16649 records read from /largefs/jabloche/morningstar/stat1998.txt
+
+31 variables and 18838 records read from /largefs/jabloche/morningstar/stat1999.txt
+
+31 variables and 25453 records read from /largefs/jabloche/morningstar/stat2000.txt
+
+31 variables and 31512 records read from /largefs/jabloche/morningstar/stat2001.txt
+
+31 variables and 39555 records read from /largefs/jabloche/morningstar/stat2002.txt
+
+31 variables and 43162 records read from /largefs/jabloche/morningstar/stat2003.txt
+
+31 variables and 45423 records read from /largefs/jabloche/morningstar/stat2004.txt
+
+31 variables and 42115 records read from /largefs/jabloche/morningstar/stat2005.txt
+
+31 variables and 44205 records read from /largefs/jabloche/morningstar/stat2006.txt
+
+31 variables and 48140 records read from /largefs/jabloche/morningstar/stat2007.txt
+
+31 variables and 51192 records read from /largefs/jabloche/morningstar/stat2008.txt
+
+31 variables and 50384 records read from /largefs/jabloche/morningstar/stat2009.txt
+
+515483 records written to /largefs/jabloche/morningstar/stat2.sas7bdat

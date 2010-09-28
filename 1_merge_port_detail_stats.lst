@@ -1,0 +1,1017 @@
+                                           The SAS System       14:28 Tuesday, September 7, 2010   1
+
+                                       The CONTENTS Procedure
+
+Data Set Name        MORN.MASTER_MORN_HOLDINGS                        Observations          92561476
+Member Type          DATA                                             Variables             49      
+Engine               V9                                               Indexes               0       
+Created              Wed, Sep 01, 2010 08:46:51 AM                    Observation Length    496     
+Last Modified        Wed, Sep 01, 2010 08:46:51 AM                    Deleted Observations  0       
+Protection                                                            Compressed            NO      
+Data Set Type                                                         Sorted                NO      
+Label                                                                                               
+Data Representation  SOLARIS_X86_64, LINUX_X86_64,                                                  
+                     ALPHA_TRU64, LINUX_IA64                                                        
+Encoding             latin1  Western (ISO)                                                          
+
+
+                                 Engine/Host Dependent Information
+
+      Data Set Page Size          40960                                                      
+      Number of Data Set Pages    1128799                                                    
+      First Data Page             1                                                          
+      Max Obs per Page            82                                                         
+      Obs in First Data Page      65                                                         
+      Number of Data Set Repairs  0                                                          
+      Filename                    /largefs/jabloche/morningstar/master_morn_holdings.sas7bdat
+      Release Created             9.0201M0                                                   
+      Host Created                Linux                                                      
+      Inode Number                38996                                                      
+      Access Permission           rw-r-----                                                  
+      Owner Name                  jabloche                                                   
+      File Size (bytes)           46235615232                                                
+
+
+                             Alphabetic List of Variables and Attributes
+ 
+  #   Variable               Type   Len   Format      Label
+
+  7   country                Char     3               Country                                      
+ 15   coupon                 Num      8               Coupon if holding is bond in pct             
+  5   cusip                  Char     9               9 digit CUSIP                                
+ 23   eq_style_box           Num      8                                                            
+ 24   fi_style_box           Num      8                                                            
+  1   fundid                 Char    10               Fund ID                                      
+ 16   industry_code          Num      8               Industry Code                                
+ 11   marketvalue            Num      8               Market Value of Shares as reported by manager
+ 14   mat_year               Num      8                                                            
+ 13   maturity               Num      8   YYMMDD10.   Maturity if holding is bond                  
+ 22   num_holdings           Num      8                                                            
+ 26   pct_long_bond          Num      8                                                            
+ 29   pct_long_cash          Num      8                                                            
+ 28   pct_long_convertible   Num      8                                                            
+ 30   pct_long_other         Num      8                                                            
+ 27   pct_long_preferred     Num      8                                                            
+ 25   pct_long_stock         Num      8                                                            
+ 32   pct_net_bond           Num      8                                                            
+ 35   pct_net_cash           Num      8                                                            
+ 34   pct_net_convertible    Num      8                                                            
+ 36   pct_net_other          Num      8                                                            
+ 33   pct_net_preferred      Num      8                                                            
+ 31   pct_net_stock          Num      8                                                            
+ 37   pct_sector_1           Num      8                                                            
+ 38   pct_sector_2           Num      8                                                            
+ 39   pct_sector_3           Num      8                                                            
+ 40   pct_sector_4           Num      8                                                            
+ 41   pct_sector_5           Num      8                                                            
+ 42   pct_sector_6           Num      8                                                            
+ 43   pct_sector_7           Num      8                                                            
+ 44   pct_sector_8           Num      8                                                            
+ 45   pct_sector_9           Num      8                                                            
+ 46   pct_sector_10          Num      8                                                            
+ 47   pct_sector_11          Num      8                                                            
+ 48   pct_sector_12          Num      8                                                            
+  2   port_date              Num      8   YYMMDD10.   Porfolio Date                                
+  3   port_year              Num      8                                                            
+ 20   prv_port_date          Num      8   YYMMDD10.                                                
+ 49   rowid                  Num      8                                                            
+ 17   sector_code            Num      8               Sector Code                                  
+ 18   sector_name            Char    20                                                            
+  8   security               Char    80               Security Name                                
+ 10   sharechange            Num      8               Change in Shares                             
+  9   shares                 Num      8               Number of Shares Owned                       
+  4   stkid                  Char    10               ISIN                                         
+ 21   tot_investment         Num      8               Total Invesment - NAV? Port value?           
+  6   type_cd                Char     2               Asset Type Code                              
+ 19   type_name              Char    32               Asset Type Name                              
+ 12   weight                 Num      8               Portfolio Weight in percentage points        
+                                           The SAS System       14:28 Tuesday, September 7, 2010   2
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+                               p   p
+                               o   o                              s
+                               r   r                       t   c  e
+               f               t   t                       y   o  c
+               u               _   _      s          c     p   u  u
+               n               d   y      t          u     e   n  r
+      O        d               a   e      k          s     _   t  i
+      b        i               t   a      i          i     c   r  t
+      s        d               e   r      d          p     d   y  y
+
+         1 FSUSA001FW 1983-06-30 1983 E0GBR017MU           E      Ncr                           
+         2 FSUSA001FW 1983-06-30 1983                      BG USA GNMA 9%                       
+         3 FSUSA001FW 1983-06-30 1983                      B      Union Pacific 11.875%         
+         4 FSUSA001FW 1983-06-30 1983 E0USA006IP 313586109 E  USA Fannie Mae                    
+         5 FSUSA001FW 1983-06-30 1983                      B      Pacific Tel & Tel 9.625%      
+         6 FSUSA001FW 1983-06-30 1983 E0USA00BFA 717081103 E  USA Pfizer                        
+         7 FSUSA001FW 1983-06-30 1983                      B      Chesapeake/Potomac Tel 12.375%
+         8 FSUSA001FW 1983-06-30 1983                      B      Southern Bell 12.875%         
+         9 FSUSA001FW 1983-06-30 1983 E0USA00E7Y 172967101 E  USA Citigroup                     
+        10 FSUSA001FW 1983-06-30 1983                      BT USA US Treasury Bond 12.75%       
+        11 FSUSA001FW 1983-06-30 1983                      B      Data General 13%              
+        12 FSUSA001FW 1983-06-30 1983                      B      Illinois Bell 8.25%           
+        13 FSUSA001FW 1983-06-30 1983 E0USA007YS 438506107 E  USA Honeywell                     
+        14 FSUSA001FW 1983-06-30 1983                      B      Pacific Gas/Electric 7.5%     
+        15 FSUSA001FW 1983-06-30 1983 E0USA006SS 345370860 E  USA Ford Motor                    
+        16 FSUSA001FW 1983-06-30 1983                      B      UT Credit 8.85%               
+        17 FSUSA001FW 1983-06-30 1983 E0USA00EDF 903293405 E  USA USG                           
+        18 FSUSA001FW 1983-06-30 1983                      B      American Express Credit 11.25%
+        19 FSUSA001FW 1983-06-30 1983                      B      Detroit Edison 7.5%           
+        20 FSUSA001FW 1983-06-30 1983                      B      BankAmerica 8.375%            
+        21 FSUSA001FW 1983-06-30 1983                      B      Consolidated Edison 9.125%    
+        22 FSUSA001FW 1983-06-30 1983 E0USA00DMD 871616108 E  USA Syntex                        
+        23 FSUSA001FW 1983-06-30 1983                      B      Public Svc Elec/Gas 8.45%     
+        24 FSUSA001FW 1983-06-30 1983                      BT USA US Treasury Bond 11.75%       
+        25 FSUSA001FW 1983-06-30 1983                      BG USA GNMA 9.5%                     
+        26 FSUSA001FW 1983-06-30 1983 E0USA007K0 423074103 E  USA Heinz HJ                      
+        27 FSUSA001FW 1983-06-30 1983                      B      Carolina Power & Light 7.75%  
+        28 FSUSA001FW 1983-06-30 1983                      B      South Central Bell 9.2%       
+        29 FSUSA001FW 1983-06-30 1983                      B      Northern States Power 9%      
+        30 FSUSA001FW 1983-06-30 1983                      B      Consumers Power 12.5%         
+        31 FSUSA001FW 1983-06-30 1983                      B      MAPCO 11.75%                  
+        32 FSUSA001FW 1983-06-30 1983 E0USA005JL 235811106 E  USA Dana                          
+        33 FSUSA001FW 1983-06-30 1983 E0USA00A8L 620076109 E  USA Motorola                      
+        34 FSUSA001FW 1983-06-30 1983                      BG     FHLMC CMO 11.875%             
+        35 FSUSA001FW 1983-06-30 1983                      B      Whirlpool 9.625%              
+        36 FSUSA001FW 1983-06-30 1983 E0USA009S4 577778103 E  USA May Department Stores         
+        37 FSUSA001FW 1983-06-30 1983                      B      Caterpillar Tractor 8.75%     
+        38 FSUSA001FW 1983-06-30 1983                      B      Southwestern Bell 8.75%       
+        39 FSUSA001FW 1983-06-30 1983 E0VEN009NX P6420J100 E  VEN Mantex                        
+        40 FSUSA001FW 1983-06-30 1983 E0USA004PN 171196108 E  USA Chrysler                      
+        41 FSUSA001FW 1983-06-30 1983 E0USA0074F 370442105 E  USA General Motors                
+        42 FSUSA001JH 1983-06-30 1983 E0USA0074R 370838104 E  USA General Signal                
+        43 FSUSA001JH 1983-06-30 1983 E0USA00ICL           E  USA Dart & Kraft                  
+        44 FSUSA001JH 1983-06-30 1983                      E      Chase Manhattan               
+        45 FSUSA001JH 1983-06-30 1983 E0USA00COK 812387108 E  USA Sears Roebuck                 
+        46 FSUSA001JH 1983-06-30 1983 E0USA0057L 219350105 E  USA Corning                       
+        47 FSUSA001JH 1983-06-30 1983 E0CAN00JP7 077914307 E  CAN Bell Canada International     
+        48 FSUSA001JH 1983-06-30 1983 E0USA006MJ 902973304 E  USA US Bancorp                    
+        49 FSUSA001JH 1983-06-30 1983 E0USA002NW 025321100 E  USA American Cyanamid             
+        50 FSUSA001JH 1983-06-30 1983 E0USA007V3 432848109 E  USA Hilton Hotels                 
+        51 FSUSA001JH 1983-06-30 1983                      E      GULF OIL CORP                 
+        52 FSUSA001JH 1983-06-30 1983 E0USA00CT1 824348106 E  USA Sherwin-Williams              
+        53 FSUSA001JH 1983-06-30 1983 E0USA0060L 277461109 E  USA Eastman Kodak                 
+        54 FSUSA001JH 1983-06-30 1983 E0USA0074F 370442105 E  USA General Motors                
+        55 FSUSA001JH 1983-06-30 1983 E0USA00LPV           E  USA Pennwalt Corp                 
+        56 FSUSA001JH 1983-06-30 1983 E0USA007YS 438506107 E  USA Honeywell                     
+        57 FSUSA001JH 1983-06-30 1983 E0USA0027B 001957505 E  USA AT&T                          
+        58 FSUSA001JH 1983-06-30 1983 E0USA003EF 06605R106 E  USA BankBoston                    
+        59 FSUSA001JH 1983-06-30 1983 E0USA003YI 110122108 E  USA Bristol-Myers Squibb          
+        60 FSUSA001JH 1983-06-30 1983 E0USA009S4 577778103 E  USA May Department Stores         
+        61 FSUSA001JH 1983-06-30 1983 E0USA00EWC 934488107 E  USA Warner-Lambert                
+        62 FSUSA001JH 1983-06-30 1983 E0USA0045J 125509109 E  USA Cigna                         
+        63 FSUSA001JH 1983-06-30 1983 E0USA00EKC 915302103 E  USA Upjohn                        
+        64 FSUSA001JH 1983-06-30 1983 E0USA00EDD 903290104 E  USA USF & G                       
+        65 FSUSA001JH 1983-06-30 1983 E0USA00834 459200101 E  USA IBM                           
+        66 FSUSA001JH 1983-06-30 1983 E0USA0070O 362320103 E  USA GTE                           
+        67 FSUSA001JH 1983-06-30 1983                      E      NCR CORP                      
+        68 FSUSA001JH 1983-06-30 1983 E0USA004UM 191216100 E  USA Coca-Cola                     
+        69 FSUSA001JH 1983-06-30 1983 E0USA00LQY 002040103 E  USA ARA Svcs                      
+        70 FSUSA001JH 1983-06-30 1983 E0USA00FCT 117043109 E  USA Brunswick                     
+        71 FSUSA001JH 1983-06-30 1983 E0USA00DVB 880349105 E  USA Tenneco Automotive            
+        72 FSUSA001JH 1983-06-30 1983 E0USA00858 450911102 E  USA ITT Industries                
+        73 FSUSA001JH 1983-06-30 1983 E0USA008FO 460146103 E  USA International Paper           
+        74 FSUSA001JH 1983-06-30 1983 E0USA005UB 260543103 E  USA Dow Chemical                  
+        75 FSUSA001JH 1983-06-30 1983 E0USA00F6S 984121103 E  USA Xerox                         
+        76 FSUSA001JH 1983-06-30 1983 E0USA00740 369604103 E  USA General Elec                  
+        77 FSUSA001JH 1983-06-30 1983 E0USA00F1F 12490K107 E  USA CBS                           
+        78 FSUSA001JH 1983-06-30 1983 E0USA004WM 196879100 E  USA Coltec Inds                   
+        79 FSUSA001JH 1983-06-30 1983 E0USA006F4 30231G102 E  USA ExxonMobil                    
+        80 FSUSA001JH 1983-06-30 1983 E0USA00B7G 695114108 E  USA PacifiCorp                    
+        81 FSUSA001JH 1983-06-30 1983 E0USA00F2B 963320106 E  USA Whirlpool                     
+        82 FSUSA001JH 1983-06-30 1983 E0USA00BY5 755111507 E  USA Raytheon                      
+        83 FSUSA001JH 1983-06-30 1983 E0USA00EDF 903293405 E  USA USG                           
+        84 FSUSA001JH 1983-06-30 1983 E0USA0077L 375766102 E  USA Gillette                      
+        85 FSUSA001JH 1983-06-30 1983 E0USA00ATP 664397106 E  USA Northeast Utilities           
+        86 FSUSA001JH 1983-06-30 1983 E0USA00EJ3 913017109 E  USA United Tech                   
+        87 FSUSA001JH 1983-06-30 1983 E0USA00A2L 88579Y101 E  USA 3M Company                    
+        88 FSUSA001JH 1983-06-30 1983 E0USA009T7 582834107 E  USA Mead                          
+        89 FSUSA001JH 1983-06-30 1983 E0USA007T5 427056106 E  USA Hercules                      
+        90 FSUSA001JH 1983-06-30 1983 E0USA00DOQ 872649108 EQ USA Trw Inc                       
+        91 FSUSA001JH 1983-06-30 1983 E0USA0066G 291011104 E  USA Emerson Elec                  
+        92 FSUSA001JH 1983-06-30 1983 E0USA00C6F 773903109 E  USA Rockwell Automation           
+        93 FSUSA002NQ 1983-06-30 1983 E0CAN016DL 134411107 E      Campbell Red Lake Mines       
+        94 FSUSA002NQ 1983-06-30 1983 E0ZAF008YK 498746601 E  ZAF Kloof Gold Mng ADR            
+        95 FSUSA002NQ 1983-06-30 1983 E0ZAF00DA2 789670205 E  ZAF Saint Helena Gold Mines ADR   
+        96 FSUSA002NQ 1983-06-30 1983 E0ZAF00EYM 949459200 E  ZAF Welkom Gold Mng ADR           
+        97 FSUSA002NQ 1983-06-30 1983 E0USA007RE 422704106 E  USA Hecla Mining                  
+        98 FSUSA002NQ 1983-06-30 1983                      E      President Brand Gold Mining   
+        99 FSUSA002NQ 1983-06-30 1983 E0ZAF005V7 38059T106 E  ZAF Gold Fields ADR               
+       100 FSUSA002NQ 1983-06-30 1983 E0ZAF003SI 096563200 E  ZAF Blyvooruitz Gold Mng ADR      
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+                                                                     i
+                                                                     n
+                      s        m                                     d  s s
+                      h        a                                     u  e e
+                      a        r                                     s  c c
+                      r        k                     m   m           t  t t
+                      e        e                     a   a           r  o o
+              s       c        t       w             t   t     c     y  r r
+              h       h        v       e             u   _     o     _  _ _
+              a       a        a       i             r   y     u     c  c n
+      O       r       n        l       g             i   e     p     o  o a
+      b       e       g        u       h             t   a     o     d  d m
+      s       s       e        e       t             y   r     n     e  e e
+
+         1   40000   40000  4700000 4.82285          .    .   .      .  .                     
+         2  964912  964912   800877 0.82181 2009-06-15 2009  9.000   .  .                     
+         3 1000000 1000000   981390 1.00704 2010-09-01 2010 11.875   .  .                     
+         4  190000  190000  4750000 4.87416          .    .   .    133  8 Financial Service   
+         5 1250000 1250000  1000762 1.02692 2014-11-01 2014  9.625   .  .                     
+         6   20000   20000  1752500 1.79831          .    .   .    106  5 Healthcare          
+         7 1000000 1000000   998020 1.02411 2017-09-01 2017 12.375   .  .                     
+         8 1000000 1000000  1033760 1.06078 2020-10-05 2020 12.875   .  .                     
+         9  144000  144000  4284000 4.39598          .    .   .    193  8 Financial Service   
+        10 5500000 5500000  6170450 6.33174 2010-11-15 2010 12.750   .  .                     
+        11 1000000 1000000  1032580 1.05957 2005-05-01 2005 13.000   .  .                     
+        12 2500000 2500000  1764725 1.81085 2016-08-06 2016  8.250   .  .                     
+        13   40000   40000  4615000 4.73563          .    .   .     70  2 Hardware            
+        14 2250000 2250000  1484370 1.52317 2003-12-01 2003  7.500   .  .                     
+        15   65600   65600  3706400 3.80328          .    .   .     34  9 Consumer Goods      
+        16 1000000 1000000   770590 0.79073 2003-01-01 2003  8.850   .  .                     
+        17   58800   58800  2837100 2.91126          .    .   .     52 10 Industrial Materials
+        18 1000000 1000000   949560 0.97438 2000-07-01 2000 11.250   .  .                     
+        19 2000000 2000000  1269800 1.30299 2003-01-15 2003  7.500   .  .                     
+        20 1109248 1109248   901264 0.92482 2007-05-01 2007  8.375   .  .                     
+        21 1750000 1750000  1384845 1.42104 2004-03-01 2004  9.125   .  .                     
+        22   83000   83000  4668750 4.79079          .    .   .    106  5 Healthcare          
+        23 1000000 1000000   727010 0.74601 2006-09-01 2006  8.450   .  .                     
+        24 1000000 1000000  1044100 1.07139 2010-02-15 2010 11.750   .  .                     
+        25 1036206 1036206   880775 0.90380 2009-08-15 2009  9.500   .  .                     
+        26   95000   95000  4132500 4.24052          .    .   .    136  9 Consumer Goods      
+        27  850000  850000   575552 0.59060 2002-05-01 2002  7.750   .  .                     
+        28 1700000 1700000  1336200 1.37113 2010-04-01 2010  9.200   .  .                     
+        29 1000000 1000000   808020 0.82914 2005-05-01 2005  9.000   .  .                     
+        30 1000000 1000000   946030 0.97076 2013-05-01 2013 12.500   .  .                     
+        31 1350000 1350000  1263303 1.29632 2003-05-01 2003 11.750   .  .                     
+        32  125000  125000  5250000 5.38723          .    .   .     37 10 Industrial Materials
+        33   30000   30000  4065000 4.17126          .    .   .    364  2 Hardware            
+        34 1000000 1000000   967870 0.99317 2003-06-15 2003 11.875   .  .                     
+        35 1500000 1500000  1286190 1.31981 2000-09-15 2000  9.625   .  .                     
+        36   89500   89500  5392375 5.53333          .    .   .     91  6 Consumer Service    
+        37 1000000 1000000   790210 0.81087 1999-11-01 1999  8.750   .  .                     
+        38 1000000 1000000   733660 0.75284 2018-09-01 2018  8.750   .  .                     
+        39   72000   72000  4581000 4.70074          .    .   .     61 10 Industrial Materials
+        40  180000  180000  5760000 5.91056          .    .   .     34  9 Consumer Goods      
+        41   69500   69500  5056125 5.18829          .    .   .     34  9 Consumer Goods      
+        42   30000   30000  1395000 1.36698          .    .   .      .  .                     
+        43   35000   35000  2301250 2.25503          .    .   .      .  .                     
+        44   35000   35000  1868125 1.83061          .    .   .      .  .                     
+        45   60000   60000  2482500 2.43264          .    .   .     91  6 Consumer Service    
+        46   20000   20000  1690000 1.65606          .    .   .    241  2 Hardware            
+        47   65000   65000  1413750 1.38536          .    .   .    334  4 Telecommunication   
+        48   40000   40000  2210000 2.16562          .    .   .    331  8 Financial Service   
+        49   55000   55000  2605625 2.55330          .    .   .      .  .                     
+        50   30000   30000  1740000 1.70506          .    .   .    175  6 Consumer Service    
+        51   45000   45000  1631250 1.59849          .    .   .      .  .                     
+        52   80000   80000  2040000 1.99903          .    .   .    247  9 Consumer Goods      
+        53   20000   20000  1452500 1.42333          .    .   .    274  9 Consumer Goods      
+        54   55000   55000  4001250 3.92089          .    .   .     34  9 Consumer Goods      
+        55   45000   45000  1749375 1.71424          .    .   .      .  .                     
+        56   12000   12000  1384500 1.35669          .    .   .     70  2 Hardware            
+        57   45764   45764  2911734 2.85326          .    .   .    334  4 Telecommunication   
+        58   40000   40000  1620000 1.58747          .    .   .    280  8 Financial Service   
+        59   35000   35000  1653750 1.62054          .    .   .    106  5 Healthcare          
+        60   30000   30000  1807500 1.77120          .    .   .     91  6 Consumer Service    
+        61   55000   55000  1725625 1.69097          .    .   .    106  5 Healthcare          
+        62   31204   31204  1501693 1.47153          .    .   .    160  5 Healthcare          
+        63   25000   25000  1606250 1.57399          .    .   .    106  5 Healthcare          
+        64   30000   30000  1515000 1.48457          .    .   .    187  8 Financial Service   
+        65   32000   32000  3848000 3.77072          .    .   .     70  2 Hardware            
+        66   80000   80000  3260000 3.19453          .    .   .    334  4 Telecommunication   
+        67   15500   15500  1821250 1.78467          .    .   .      .  .                     
+        68   45000   45000  2250000 2.20481          .    .   .     43  9 Consumer Goods      
+        69   45000   45000  2289375 2.24340          .    .   .      .  .                     
+        70   60000   60000  2340000 2.29301          .    .   .    277  9 Consumer Goods      
+        71   35000   35000  1426250 1.39761          .    .   .     37 10 Industrial Materials
+        72   60000   60000  2520000 2.46939          .    .   .    202 10 Industrial Materials
+        73   25000   25000  1306250 1.28002          .    .   .    250 10 Industrial Materials
+        74   60000   60000  1995000 1.95493          .    .   .     61 10 Industrial Materials
+        75   30000   30000  1417500 1.38903          .    .   .    226 10 Industrial Materials
+        76   60000   60000  3292500 3.22638          .    .   .    112 10 Industrial Materials
+        77   52000   52000  2967500 2.90790          .    .   .     49  3 Media               
+        78   50000   50000  2087500 2.04558          .    .   .      4 10 Industrial Materials
+        79   60000   60000  2047500 2.00638          .    .   .    229 11 Energy              
+        80   70300   70300  1564175 1.53276          .    .   .    115 12 Utilities           
+        81   45000   45000  2340000 2.29301          .    .   .    145  9 Consumer Goods      
+        82   30000   30000  1515000 1.48457          .    .   .      4 10 Industrial Materials
+        83   30000   30000  1447500 1.41843          .    .   .     52 10 Industrial Materials
+        84   35000   35000  1531250 1.50050          .    .   .    178  9 Consumer Goods      
+        85  115000  115000  1408750 1.38046          .    .   .    115 12 Utilities           
+        86   25000   25000  1837500 1.80060          .    .   .    103 10 Industrial Materials
+        87   30000   30000  2512500 2.46204          .    .   .    103 10 Industrial Materials
+        88   50000   50000  1531250 1.50050          .    .   .    250 10 Industrial Materials
+        89   40000   40000  1590000 1.55807          .    .   .     61 10 Industrial Materials
+        90   20000   20000  1492500 1.46253          .    .   .     37 10 Industrial Materials
+        91   40000   40000  2460000 2.41060          .    .   .    112 10 Industrial Materials
+        92   50000   50000  1643750 1.61074          .    .   .    112 10 Industrial Materials
+        93  448000  448000 12824000 4.28816          .    .   .      .  .                     
+        94  295000  295000 14381250 4.80888          .    .   .    154 10 Industrial Materials
+        95  229800  229800  9823950 3.28499          .    .   .    154 10 Industrial Materials
+        96  111250  111250  1550547 0.51848          .    .   .      .  .                     
+        97   95000   95000  2125625 0.71078          .    .   .    154 10 Industrial Materials
+        98  285000  285000 13608750 4.55057          .    .   .      .  .                     
+        99  401300  401300 14145825 4.73016          .    .   .    154 10 Industrial Materials
+       100  520400  520400  8489025 2.83861          .    .   .    154 10 Industrial Materials
+
+ 
+ 
+                                                                                                 p
+                                                                                                 c
+                                                                                                 t
+                                                                                                 _
+                                                    t                           p                l
+                                            p       o                           c         p      o
+                                            r       t        n    e      f      t         c      n
+                                            v       _        u    q      i      _         t      g
+                                            _       i        m    _      _      l         _      _
+           t                                p       n        _    s      s      o         l      p
+           y                                o       v        h    t      t      n         o      r
+           p                                r       e        o    y      y      g         n      e
+           e                                t       s        l    l      l      _         g      f
+           _                                _       t        d    e      e      s         _      e
+           n                                d       m        i    _      _      t         b      r
+      O    a                                a       e        n    b      b      o         o      r
+      b    m                                t       n        g    o      o      c         n      e
+      s    e                                e       t        s    x      x      k         d      d
+
+         1 Stock                            .    97452663   41   -99   -99    67.264   32.7358   0
+         2 Bond - Gov Agcy Pthru            .    97452663   41   -99   -99    67.264   32.7358   0
+         3 Bond                             .    97452663   41   -99   -99    67.264   32.7358   0
+         4 Stock                            .    97452663   41   -99   -99    67.264   32.7358   0
+         5 Bond                             .    97452663   41   -99   -99    67.264   32.7358   0
+         6 Stock                            .    97452663   41   -99   -99    67.264   32.7358   0
+         7 Bond                             .    97452663   41   -99   -99    67.264   32.7358   0
+         8 Bond                             .    97452663   41   -99   -99    67.264   32.7358   0
+         9 Stock                            .    97452663   41   -99   -99    67.264   32.7358   0
+        10 Bond - US Treasury               .    97452663   41   -99   -99    67.264   32.7358   0
+        11 Bond                             .    97452663   41   -99   -99    67.264   32.7358   0
+        12 Bond                             .    97452663   41   -99   -99    67.264   32.7358   0
+        13 Stock                            .    97452663   41   -99   -99    67.264   32.7358   0
+        14 Bond                             .    97452663   41   -99   -99    67.264   32.7358   0
+        15 Stock                            .    97452663   41   -99   -99    67.264   32.7358   0
+        16 Bond                             .    97452663   41   -99   -99    67.264   32.7358   0
+        17 Stock                            .    97452663   41   -99   -99    67.264   32.7358   0
+        18 Bond                             .    97452663   41   -99   -99    67.264   32.7358   0
+        19 Bond                             .    97452663   41   -99   -99    67.264   32.7358   0
+        20 Bond                             .    97452663   41   -99   -99    67.264   32.7358   0
+        21 Bond                             .    97452663   41   -99   -99    67.264   32.7358   0
+        22 Stock                            .    97452663   41   -99   -99    67.264   32.7358   0
+        23 Bond                             .    97452663   41   -99   -99    67.264   32.7358   0
+        24 Bond - US Treasury               .    97452663   41   -99   -99    67.264   32.7358   0
+        25 Bond - Gov Agcy Pthru            .    97452663   41   -99   -99    67.264   32.7358   0
+        26 Stock                            .    97452663   41   -99   -99    67.264   32.7358   0
+        27 Bond                             .    97452663   41   -99   -99    67.264   32.7358   0
+        28 Bond                             .    97452663   41   -99   -99    67.264   32.7358   0
+        29 Bond                             .    97452663   41   -99   -99    67.264   32.7358   0
+        30 Bond                             .    97452663   41   -99   -99    67.264   32.7358   0
+        31 Bond                             .    97452663   41   -99   -99    67.264   32.7358   0
+        32 Stock                            .    97452663   41   -99   -99    67.264   32.7358   0
+        33 Stock                            .    97452663   41   -99   -99    67.264   32.7358   0
+        34 Bond - Gov Agcy Pthru            .    97452663   41   -99   -99    67.264   32.7358   0
+        35 Bond                             .    97452663   41   -99   -99    67.264   32.7358   0
+        36 Stock                            .    97452663   41   -99   -99    67.264   32.7358   0
+        37 Bond                             .    97452663   41   -99   -99    67.264   32.7358   0
+        38 Bond                             .    97452663   41   -99   -99    67.264   32.7358   0
+        39 Stock                            .    97452663   41   -99   -99    67.264   32.7358   0
+        40 Stock                            .    97452663   41   -99   -99    67.264   32.7358   0
+        41 Stock                            .    97452663   41   -99   -99    67.264   32.7358   0
+        42 Stock                            .   102049477   51   -99     2   100.000    0.0000   0
+        43 Stock                            .   102049477   51   -99     2   100.000    0.0000   0
+        44 Stock                            .   102049477   51   -99     2   100.000    0.0000   0
+        45 Stock                            .   102049477   51   -99     2   100.000    0.0000   0
+        46 Stock                            .   102049477   51   -99     2   100.000    0.0000   0
+        47 Stock                            .   102049477   51   -99     2   100.000    0.0000   0
+        48 Stock                            .   102049477   51   -99     2   100.000    0.0000   0
+        49 Stock                            .   102049477   51   -99     2   100.000    0.0000   0
+        50 Stock                            .   102049477   51   -99     2   100.000    0.0000   0
+        51 Stock                            .   102049477   51   -99     2   100.000    0.0000   0
+        52 Stock                            .   102049477   51   -99     2   100.000    0.0000   0
+        53 Stock                            .   102049477   51   -99     2   100.000    0.0000   0
+        54 Stock                            .   102049477   51   -99     2   100.000    0.0000   0
+        55 Stock                            .   102049477   51   -99     2   100.000    0.0000   0
+        56 Stock                            .   102049477   51   -99     2   100.000    0.0000   0
+        57 Stock                            .   102049477   51   -99     2   100.000    0.0000   0
+        58 Stock                            .   102049477   51   -99     2   100.000    0.0000   0
+        59 Stock                            .   102049477   51   -99     2   100.000    0.0000   0
+        60 Stock                            .   102049477   51   -99     2   100.000    0.0000   0
+        61 Stock                            .   102049477   51   -99     2   100.000    0.0000   0
+        62 Stock                            .   102049477   51   -99     2   100.000    0.0000   0
+        63 Stock                            .   102049477   51   -99     2   100.000    0.0000   0
+        64 Stock                            .   102049477   51   -99     2   100.000    0.0000   0
+        65 Stock                            .   102049477   51   -99     2   100.000    0.0000   0
+        66 Stock                            .   102049477   51   -99     2   100.000    0.0000   0
+        67 Stock                            .   102049477   51   -99     2   100.000    0.0000   0
+        68 Stock                            .   102049477   51   -99     2   100.000    0.0000   0
+        69 Stock                            .   102049477   51   -99     2   100.000    0.0000   0
+        70 Stock                            .   102049477   51   -99     2   100.000    0.0000   0
+        71 Stock                            .   102049477   51   -99     2   100.000    0.0000   0
+        72 Stock                            .   102049477   51   -99     2   100.000    0.0000   0
+        73 Stock                            .   102049477   51   -99     2   100.000    0.0000   0
+        74 Stock                            .   102049477   51   -99     2   100.000    0.0000   0
+        75 Stock                            .   102049477   51   -99     2   100.000    0.0000   0
+        76 Stock                            .   102049477   51   -99     2   100.000    0.0000   0
+        77 Stock                            .   102049477   51   -99     2   100.000    0.0000   0
+        78 Stock                            .   102049477   51   -99     2   100.000    0.0000   0
+        79 Stock                            .   102049477   51   -99     2   100.000    0.0000   0
+        80 Stock                            .   102049477   51   -99     2   100.000    0.0000   0
+        81 Stock                            .   102049477   51   -99     2   100.000    0.0000   0
+        82 Stock                            .   102049477   51   -99     2   100.000    0.0000   0
+        83 Stock                            .   102049477   51   -99     2   100.000    0.0000   0
+        84 Stock                            .   102049477   51   -99     2   100.000    0.0000   0
+        85 Stock                            .   102049477   51   -99     2   100.000    0.0000   0
+        86 Stock                            .   102049477   51   -99     2   100.000    0.0000   0
+        87 Stock                            .   102049477   51   -99     2   100.000    0.0000   0
+        88 Stock                            .   102049477   51   -99     2   100.000    0.0000   0
+        89 Stock                            .   102049477   51   -99     2   100.000    0.0000   0
+        90 Equity - Other                   .   102049477   51   -99     2   100.000    0.0000   0
+        91 Stock                            .   102049477   51   -99     2   100.000    0.0000   0
+        92 Stock                            .   102049477   51   -99     2   100.000    0.0000   0
+        93 Stock                            .   299055903   36   -99   -99   100.000    0.0000   0
+        94 Stock                            .   299055903   36   -99   -99   100.000    0.0000   0
+        95 Stock                            .   299055903   36   -99   -99   100.000    0.0000   0
+        96 Stock                            .   299055903   36   -99   -99   100.000    0.0000   0
+        97 Stock                            .   299055903   36   -99   -99   100.000    0.0000   0
+        98 Stock                            .   299055903   36   -99   -99   100.000    0.0000   0
+        99 Stock                            .   299055903   36   -99   -99   100.000    0.0000   0
+       100 Stock                            .   299055903   36   -99   -99   100.000    0.0000   0
+
+           p
+           c                             p
+           t                             c
+           _                          p  t
+           l                          c  _
+           o                          t  n
+           n     p                    _  e
+           g  p  c     p              n  t     p
+           _  c  t     c        p     e  _  p  c  p     p        p       p        p        p
+           c  t  _     t        c     t  c  c  t  c     c        c       c        c        c
+           o  _  l     _        t     _  o  t  _  t     t        t       t        t        t
+           n  l  o     n        _     p  n  _  n  _     _        _       _        _        _
+           v  o  n     e        n     r  v  n  e  s     s        s       s        s        s
+           e  n  g     t        e     e  e  e  t  e     e        e       e        e        e
+           r  g  _     _        t     f  r  t  _  c     c        c       c        c        c
+           t  _  o     s        _     e  t  _  o  t     t        t       t        t        t
+           i  c  t     t        b     r  i  c  t  o     o        o       o        o        o
+      O    b  a  h     o        o     r  b  a  h  r     r        r       r        r        r
+      b    l  s  e     c        n     e  l  s  e  _     _        _       _        _        _
+      s    e  h  r     k        d     d  e  h  r  1     2        3       4        5        6
+
+         1 0  0  0   67.264  32.7358  0  0  0  0  0  8.90689  0.0000  0.00000  6.58910  5.53333
+         2 0  0  0   67.264  32.7358  0  0  0  0  0  8.90689  0.0000  0.00000  6.58910  5.53333
+         3 0  0  0   67.264  32.7358  0  0  0  0  0  8.90689  0.0000  0.00000  6.58910  5.53333
+         4 0  0  0   67.264  32.7358  0  0  0  0  0  8.90689  0.0000  0.00000  6.58910  5.53333
+         5 0  0  0   67.264  32.7358  0  0  0  0  0  8.90689  0.0000  0.00000  6.58910  5.53333
+         6 0  0  0   67.264  32.7358  0  0  0  0  0  8.90689  0.0000  0.00000  6.58910  5.53333
+         7 0  0  0   67.264  32.7358  0  0  0  0  0  8.90689  0.0000  0.00000  6.58910  5.53333
+         8 0  0  0   67.264  32.7358  0  0  0  0  0  8.90689  0.0000  0.00000  6.58910  5.53333
+         9 0  0  0   67.264  32.7358  0  0  0  0  0  8.90689  0.0000  0.00000  6.58910  5.53333
+        10 0  0  0   67.264  32.7358  0  0  0  0  0  8.90689  0.0000  0.00000  6.58910  5.53333
+        11 0  0  0   67.264  32.7358  0  0  0  0  0  8.90689  0.0000  0.00000  6.58910  5.53333
+        12 0  0  0   67.264  32.7358  0  0  0  0  0  8.90689  0.0000  0.00000  6.58910  5.53333
+        13 0  0  0   67.264  32.7358  0  0  0  0  0  8.90689  0.0000  0.00000  6.58910  5.53333
+        14 0  0  0   67.264  32.7358  0  0  0  0  0  8.90689  0.0000  0.00000  6.58910  5.53333
+        15 0  0  0   67.264  32.7358  0  0  0  0  0  8.90689  0.0000  0.00000  6.58910  5.53333
+        16 0  0  0   67.264  32.7358  0  0  0  0  0  8.90689  0.0000  0.00000  6.58910  5.53333
+        17 0  0  0   67.264  32.7358  0  0  0  0  0  8.90689  0.0000  0.00000  6.58910  5.53333
+        18 0  0  0   67.264  32.7358  0  0  0  0  0  8.90689  0.0000  0.00000  6.58910  5.53333
+        19 0  0  0   67.264  32.7358  0  0  0  0  0  8.90689  0.0000  0.00000  6.58910  5.53333
+        20 0  0  0   67.264  32.7358  0  0  0  0  0  8.90689  0.0000  0.00000  6.58910  5.53333
+        21 0  0  0   67.264  32.7358  0  0  0  0  0  8.90689  0.0000  0.00000  6.58910  5.53333
+        22 0  0  0   67.264  32.7358  0  0  0  0  0  8.90689  0.0000  0.00000  6.58910  5.53333
+        23 0  0  0   67.264  32.7358  0  0  0  0  0  8.90689  0.0000  0.00000  6.58910  5.53333
+        24 0  0  0   67.264  32.7358  0  0  0  0  0  8.90689  0.0000  0.00000  6.58910  5.53333
+        25 0  0  0   67.264  32.7358  0  0  0  0  0  8.90689  0.0000  0.00000  6.58910  5.53333
+        26 0  0  0   67.264  32.7358  0  0  0  0  0  8.90689  0.0000  0.00000  6.58910  5.53333
+        27 0  0  0   67.264  32.7358  0  0  0  0  0  8.90689  0.0000  0.00000  6.58910  5.53333
+        28 0  0  0   67.264  32.7358  0  0  0  0  0  8.90689  0.0000  0.00000  6.58910  5.53333
+        29 0  0  0   67.264  32.7358  0  0  0  0  0  8.90689  0.0000  0.00000  6.58910  5.53333
+        30 0  0  0   67.264  32.7358  0  0  0  0  0  8.90689  0.0000  0.00000  6.58910  5.53333
+        31 0  0  0   67.264  32.7358  0  0  0  0  0  8.90689  0.0000  0.00000  6.58910  5.53333
+        32 0  0  0   67.264  32.7358  0  0  0  0  0  8.90689  0.0000  0.00000  6.58910  5.53333
+        33 0  0  0   67.264  32.7358  0  0  0  0  0  8.90689  0.0000  0.00000  6.58910  5.53333
+        34 0  0  0   67.264  32.7358  0  0  0  0  0  8.90689  0.0000  0.00000  6.58910  5.53333
+        35 0  0  0   67.264  32.7358  0  0  0  0  0  8.90689  0.0000  0.00000  6.58910  5.53333
+        36 0  0  0   67.264  32.7358  0  0  0  0  0  8.90689  0.0000  0.00000  6.58910  5.53333
+        37 0  0  0   67.264  32.7358  0  0  0  0  0  8.90689  0.0000  0.00000  6.58910  5.53333
+        38 0  0  0   67.264  32.7358  0  0  0  0  0  8.90689  0.0000  0.00000  6.58910  5.53333
+        39 0  0  0   67.264  32.7358  0  0  0  0  0  8.90689  0.0000  0.00000  6.58910  5.53333
+        40 0  0  0   67.264  32.7358  0  0  0  0  0  8.90689  0.0000  0.00000  6.58910  5.53333
+        41 0  0  0   67.264  32.7358  0  0  0  0  0  8.90689  0.0000  0.00000  6.58910  5.53333
+        42 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        43 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        44 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        45 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        46 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        47 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        48 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        49 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        50 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        51 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        52 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        53 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        54 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        55 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        56 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        57 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        58 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        59 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        60 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        61 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        62 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        63 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        64 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        65 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        66 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        67 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        68 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        69 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        70 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        71 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        72 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        73 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        74 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        75 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        76 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        77 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        78 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        79 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        80 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        81 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        82 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        83 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        84 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        85 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        86 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        87 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        88 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        89 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        90 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        91 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        92 0  0  0  100.000   0.0000  0  0  0  0  0  6.78347  2.9079  7.43314  6.35703  5.90890
+        93 0  0  0  100.000   0.0000  0  0  0  0  0  0.00000  0.0000  0.00000  0.00000  0.00000
+        94 0  0  0  100.000   0.0000  0  0  0  0  0  0.00000  0.0000  0.00000  0.00000  0.00000
+        95 0  0  0  100.000   0.0000  0  0  0  0  0  0.00000  0.0000  0.00000  0.00000  0.00000
+        96 0  0  0  100.000   0.0000  0  0  0  0  0  0.00000  0.0000  0.00000  0.00000  0.00000
+        97 0  0  0  100.000   0.0000  0  0  0  0  0  0.00000  0.0000  0.00000  0.00000  0.00000
+        98 0  0  0  100.000   0.0000  0  0  0  0  0  0.00000  0.0000  0.00000  0.00000  0.00000
+        99 0  0  0  100.000   0.0000  0  0  0  0  0  0.00000  0.0000  0.00000  0.00000  0.00000
+       100 0  0  0  100.000   0.0000  0  0  0  0  0  0.00000  0.0000  0.00000  0.00000  0.00000
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+                                         p          p          p
+           p       p          p          c          c          c
+           c       c          c          t          t          t
+           t       t          t          _          _          _
+           _       _          _          s          s          s
+           s       s          s          e          e          e
+           e       e          e          c          c          c
+           c       c          c          t          t          t
+           t       t          t          o          o          o         r
+           o       o          o          r          r          r         o
+      O    r       r          r          _          _          _         w
+      b    _       _          _          1          1          1         i
+      s    7       8          9          0          1          2         d
+
+         1 0    9.27014    19.1427    12.9992    0.00000    0.00000      1
+         2 0    9.27014    19.1427    12.9992    0.00000    0.00000      2
+         3 0    9.27014    19.1427    12.9992    0.00000    0.00000      3
+         4 0    9.27014    19.1427    12.9992    0.00000    0.00000      4
+         5 0    9.27014    19.1427    12.9992    0.00000    0.00000      5
+         6 0    9.27014    19.1427    12.9992    0.00000    0.00000      6
+         7 0    9.27014    19.1427    12.9992    0.00000    0.00000      7
+         8 0    9.27014    19.1427    12.9992    0.00000    0.00000      8
+         9 0    9.27014    19.1427    12.9992    0.00000    0.00000      9
+        10 0    9.27014    19.1427    12.9992    0.00000    0.00000     10
+        11 0    9.27014    19.1427    12.9992    0.00000    0.00000     11
+        12 0    9.27014    19.1427    12.9992    0.00000    0.00000     12
+        13 0    9.27014    19.1427    12.9992    0.00000    0.00000     13
+        14 0    9.27014    19.1427    12.9992    0.00000    0.00000     14
+        15 0    9.27014    19.1427    12.9992    0.00000    0.00000     15
+        16 0    9.27014    19.1427    12.9992    0.00000    0.00000     16
+        17 0    9.27014    19.1427    12.9992    0.00000    0.00000     17
+        18 0    9.27014    19.1427    12.9992    0.00000    0.00000     18
+        19 0    9.27014    19.1427    12.9992    0.00000    0.00000     19
+        20 0    9.27014    19.1427    12.9992    0.00000    0.00000     20
+        21 0    9.27014    19.1427    12.9992    0.00000    0.00000     21
+        22 0    9.27014    19.1427    12.9992    0.00000    0.00000     22
+        23 0    9.27014    19.1427    12.9992    0.00000    0.00000     23
+        24 0    9.27014    19.1427    12.9992    0.00000    0.00000     24
+        25 0    9.27014    19.1427    12.9992    0.00000    0.00000     25
+        26 0    9.27014    19.1427    12.9992    0.00000    0.00000     26
+        27 0    9.27014    19.1427    12.9992    0.00000    0.00000     27
+        28 0    9.27014    19.1427    12.9992    0.00000    0.00000     28
+        29 0    9.27014    19.1427    12.9992    0.00000    0.00000     29
+        30 0    9.27014    19.1427    12.9992    0.00000    0.00000     30
+        31 0    9.27014    19.1427    12.9992    0.00000    0.00000     31
+        32 0    9.27014    19.1427    12.9992    0.00000    0.00000     32
+        33 0    9.27014    19.1427    12.9992    0.00000    0.00000     33
+        34 0    9.27014    19.1427    12.9992    0.00000    0.00000     34
+        35 0    9.27014    19.1427    12.9992    0.00000    0.00000     35
+        36 0    9.27014    19.1427    12.9992    0.00000    0.00000     36
+        37 0    9.27014    19.1427    12.9992    0.00000    0.00000     37
+        38 0    9.27014    19.1427    12.9992    0.00000    0.00000     38
+        39 0    9.27014    19.1427    12.9992    0.00000    0.00000     39
+        40 0    9.27014    19.1427    12.9992    0.00000    0.00000     40
+        41 0    9.27014    19.1427    12.9992    0.00000    0.00000     41
+        42 0    5.23766    15.6346    29.4710    2.00638    2.91322     42
+        43 0    5.23766    15.6346    29.4710    2.00638    2.91322     43
+        44 0    5.23766    15.6346    29.4710    2.00638    2.91322     44
+        45 0    5.23766    15.6346    29.4710    2.00638    2.91322     45
+        46 0    5.23766    15.6346    29.4710    2.00638    2.91322     46
+        47 0    5.23766    15.6346    29.4710    2.00638    2.91322     47
+        48 0    5.23766    15.6346    29.4710    2.00638    2.91322     48
+        49 0    5.23766    15.6346    29.4710    2.00638    2.91322     49
+        50 0    5.23766    15.6346    29.4710    2.00638    2.91322     50
+        51 0    5.23766    15.6346    29.4710    2.00638    2.91322     51
+        52 0    5.23766    15.6346    29.4710    2.00638    2.91322     52
+        53 0    5.23766    15.6346    29.4710    2.00638    2.91322     53
+        54 0    5.23766    15.6346    29.4710    2.00638    2.91322     54
+        55 0    5.23766    15.6346    29.4710    2.00638    2.91322     55
+        56 0    5.23766    15.6346    29.4710    2.00638    2.91322     56
+        57 0    5.23766    15.6346    29.4710    2.00638    2.91322     57
+        58 0    5.23766    15.6346    29.4710    2.00638    2.91322     58
+        59 0    5.23766    15.6346    29.4710    2.00638    2.91322     59
+        60 0    5.23766    15.6346    29.4710    2.00638    2.91322     60
+        61 0    5.23766    15.6346    29.4710    2.00638    2.91322     61
+        62 0    5.23766    15.6346    29.4710    2.00638    2.91322     62
+        63 0    5.23766    15.6346    29.4710    2.00638    2.91322     63
+        64 0    5.23766    15.6346    29.4710    2.00638    2.91322     64
+        65 0    5.23766    15.6346    29.4710    2.00638    2.91322     65
+        66 0    5.23766    15.6346    29.4710    2.00638    2.91322     66
+        67 0    5.23766    15.6346    29.4710    2.00638    2.91322     67
+        68 0    5.23766    15.6346    29.4710    2.00638    2.91322     68
+        69 0    5.23766    15.6346    29.4710    2.00638    2.91322     69
+        70 0    5.23766    15.6346    29.4710    2.00638    2.91322     70
+        71 0    5.23766    15.6346    29.4710    2.00638    2.91322     71
+        72 0    5.23766    15.6346    29.4710    2.00638    2.91322     72
+        73 0    5.23766    15.6346    29.4710    2.00638    2.91322     73
+        74 0    5.23766    15.6346    29.4710    2.00638    2.91322     74
+        75 0    5.23766    15.6346    29.4710    2.00638    2.91322     75
+        76 0    5.23766    15.6346    29.4710    2.00638    2.91322     76
+        77 0    5.23766    15.6346    29.4710    2.00638    2.91322     77
+        78 0    5.23766    15.6346    29.4710    2.00638    2.91322     78
+        79 0    5.23766    15.6346    29.4710    2.00638    2.91322     79
+        80 0    5.23766    15.6346    29.4710    2.00638    2.91322     80
+        81 0    5.23766    15.6346    29.4710    2.00638    2.91322     81
+        82 0    5.23766    15.6346    29.4710    2.00638    2.91322     82
+        83 0    5.23766    15.6346    29.4710    2.00638    2.91322     83
+        84 0    5.23766    15.6346    29.4710    2.00638    2.91322     84
+        85 0    5.23766    15.6346    29.4710    2.00638    2.91322     85
+        86 0    5.23766    15.6346    29.4710    2.00638    2.91322     86
+        87 0    5.23766    15.6346    29.4710    2.00638    2.91322     87
+        88 0    5.23766    15.6346    29.4710    2.00638    2.91322     88
+        89 0    5.23766    15.6346    29.4710    2.00638    2.91322     89
+        90 0    5.23766    15.6346    29.4710    2.00638    2.91322     90
+        91 0    5.23766    15.6346    29.4710    2.00638    2.91322     91
+        92 0    5.23766    15.6346    29.4710    2.00638    2.91322     92
+        93 0    4.81553     0.0000    60.3857    0.00000    0.00000     93
+        94 0    4.81553     0.0000    60.3857    0.00000    0.00000     94
+        95 0    4.81553     0.0000    60.3857    0.00000    0.00000     95
+        96 0    4.81553     0.0000    60.3857    0.00000    0.00000     96
+        97 0    4.81553     0.0000    60.3857    0.00000    0.00000     97
+        98 0    4.81553     0.0000    60.3857    0.00000    0.00000     98
+        99 0    4.81553     0.0000    60.3857    0.00000    0.00000     99
+       100 0    4.81553     0.0000    60.3857    0.00000    0.00000    100
+                                           The SAS System       14:28 Tuesday, September 7, 2010   3
+
+                                      The UNIVARIATE Procedure
+                                      Variable:  mkt_val_diff
+
+                                              Moments
+
+                  N                      515114    Sum Weights             515114
+                  Mean               -727829930    Sum Observations    -3.7492E14
+                  Std Deviation       4.9567E11    Variance            2.45688E23
+                  Skewness           -717.34021    Kurtosis             514751.94
+                  Uncorrected SS     1.26558E29    Corrected SS        1.26557E29
+                  Coeff Variation    -68102.397    Std Error Mean       690622357
+
+
+                                     Basic Statistical Measures
+ 
+                           Location                    Variability
+
+                       Mean     -7.278E8     Std Deviation          4.9567E11
+                       Median          0     Variance              2.45688E23
+                       Mode            0     Range                 3.55687E14
+                                             Interquartile Range            0
+
+
+                                     Tests for Location: Mu0=0
+ 
+                          Test           -Statistic-    -----p Value------
+
+                          Student's t    t  -1.05388    Pr > |t|    0.2919
+                          Sign           M    -34078    Pr >= |M|   <.0001
+                          Signed Rank    S  -1.164E9    Pr >= |S|   <.0001
+
+
+                                      Quantiles (Definition 5)
+ 
+                                     Quantile          Estimate
+
+                                     100% Max          14764134
+                                     99%                      0
+                                     95%                      0
+                                     90%                      0
+                                     75% Q3                   0
+                                     50% Median               0
+                                     25% Q1                   0
+                                     10%                -120657
+                                     5%                -6269608
+                                     1%              -149589629
+                                     0% Min        -3.556867E14
+
+
+                                        Extreme Observations
+ 
+                          --------Lowest-------        ------Highest-----
+ 
+                                 Value      Obs            Value      Obs
+
+                          -3.55687E+14   474466          4668373   245366
+                          -6.40019E+12   474663          4790189   253467
+                          -8.92631E+11   378225          7404978   263167
+                          -8.10101E+11   378226          7730144   245401
+                          -7.60031E+11   426225         14764134   155422
+                                           The SAS System       14:28 Tuesday, September 7, 2010   4
+
+                                      The UNIVARIATE Procedure
+                                       Variable:  weight_diff
+
+                                              Moments
+
+                  N                      515100    Sum Weights             515100
+                  Mean               330.924297    Sum Observations     170459105
+                  Std Deviation      82891.9597    Variance            6871076979
+                  Skewness           266.315378    Kurtosis            71433.5885
+                  Uncorrected SS     3.53934E15    Corrected SS        3.53928E15
+                  Coeff Variation     25048.617    Std Error Mean      115.495917
+
+
+                                     Basic Statistical Measures
+ 
+                           Location                    Variability
+
+                       Mean     330.9243     Std Deviation              82892
+                       Median     0.0000     Variance              6871076979
+                       Mode       0.0000     Range                   22314684
+                                             Interquartile Range    0.0000400
+
+
+                                     Tests for Location: Mu0=0
+ 
+                          Test           -Statistic-    -----p Value------
+
+                          Student's t    t  2.865247    Pr > |t|    0.0042
+                          Sign           M   33419.5    Pr >= |M|   <.0001
+                          Signed Rank    S    1.5E10    Pr >= |S|   <.0001
+
+
+                                      Quantiles (Definition 5)
+ 
+                                     Quantile          Estimate
+
+                                     100% Max       2.23147E+07
+                                     99%            7.14314E+01
+                                     95%            5.26109E+00
+                                     90%            1.90290E-01
+                                     75% Q3         3.00000E-05
+                                     50% Median     2.84217E-14
+                                     25% Q1        -1.00000E-05
+                                     10%           -3.00000E-05
+                                     5%            -5.00000E-05
+                                     1%            -1.00000E-04
+                                     0% Min        -1.76650E+01
+
+
+                                        Extreme Observations
+ 
+                            ------Lowest------        ------Highest-----
+ 
+                                Value      Obs            Value      Obs
+
+                            -1.77E+01   464454         22314667   476520
+                            -1.09E+01   464453         22314667   476521
+                            -9.06E+00   418496         22314667   476522
+                            -8.03E+00   460223         22314667   476519
+                            -7.66E+00   443282         22314667   476517
+
+
+                                           Missing Values
+ 
+                                                   -----Percent Of-----
+                            Missing                             Missing
+                              Value       Count     All Obs         Obs
+
+                                  .          14        0.00      100.00
+                                           The SAS System       14:28 Tuesday, September 7, 2010   5
+
+                                      The UNIVARIATE Procedure
+                                      Variable:  num_hold_diff
+
+                                              Moments
+
+                  N                      515114    Sum Weights             515114
+                  Mean               2.99452742    Sum Observations       1542523
+                  Std Deviation      32.1115616    Variance            1031.15239
+                  Skewness           147.815561    Kurtosis            43376.4817
+                  Uncorrected SS      535779129    Corrected SS         531160002
+                  Coeff Variation    1072.34154    Std Error Mean      0.04474142
+
+
+                                     Basic Statistical Measures
+ 
+                           Location                    Variability
+
+                       Mean     2.994527     Std Deviation           32.11156
+                       Median   0.000000     Variance                    1031
+                       Mode     0.000000     Range                      11633
+                                             Interquartile Range            0
+
+
+                                     Tests for Location: Mu0=0
+ 
+                          Test           -Statistic-    -----p Value------
+
+                          Student's t    t  66.92965    Pr > |t|    <.0001
+                          Sign           M     55869    Pr >= |M|   <.0001
+                          Signed Rank    S   3.125E9    Pr >= |S|   <.0001
+
+
+                                      Quantiles (Definition 5)
+ 
+                                       Quantile      Estimate
+
+                                       100% Max        1.E+04
+                                       99%             6.E+01
+                                       95%             9.E+00
+                                       90%             3.E+00
+                                       75% Q3          0.E+00
+                                       50% Median      0.E+00
+                                       25% Q1          0.E+00
+                                       10%             0.E+00
+                                       5%              0.E+00
+                                       1%              0.E+00
+                                       0% Min           -33E0
+
+
+                                        Extreme Observations
+ 
+                               ----Lowest----        ----Highest----
+ 
+                               Value      Obs         Value      Obs
+
+                                 -33   475175          2355   476634
+                                 -29   480444          2990   476636
+                                 -13   480342          6328   426226
+                                 -10   514454          7827   165575
+                                 -10   480337         11600   498479
+                                           The SAS System       14:28 Tuesday, September 7, 2010   6
+
+                                      The UNIVARIATE Procedure
+                                      Variable:  pct_long_diff
+
+                                              Moments
+
+                  N                      515114    Sum Weights             515114
+                  Mean               167.391851    Sum Observations      86225886
+                  Std Deviation      41469.3514    Variance            1719707109
+                  Skewness           265.886492    Kurtosis            71271.3886
+                  Uncorrected SS     8.85858E14    Corrected SS        8.85843E14
+                  Coeff Variation    24773.8173    Std Error Mean      57.7797378
+
+
+                                     Basic Statistical Measures
+ 
+                           Location                    Variability
+
+                       Mean     167.3919     Std Deviation              41469
+                       Median     0.0000     Variance              1719707109
+                       Mode       0.0000     Range                   11157433
+                                             Interquartile Range            0
+
+
+                                     Tests for Location: Mu0=0
+ 
+                          Test           -Statistic-    -----p Value------
+
+                          Student's t    t  2.897068    Pr > |t|    0.0038
+                          Sign           M     45288    Pr >= |M|   <.0001
+                          Signed Rank    S  4.4149E9    Pr >= |S|   <.0001
+
+
+                                      Quantiles (Definition 5)
+ 
+                                     Quantile          Estimate
+
+                                     100% Max       1.11573E+07
+                                     99%            4.16333E+01
+                                     95%            4.39415E+00
+                                     90%            4.80600E-01
+                                     75% Q3         0.00000E+00
+                                     50% Median     0.00000E+00
+                                     25% Q1         0.00000E+00
+                                     10%            0.00000E+00
+                                     5%            -1.42109E-14
+                                     1%            -1.00000E-05
+                                     0% Min        -1.00000E+02
+
+
+                                        Extreme Observations
+ 
+                              ----Lowest----        ------Highest-----
+ 
+                              Value      Obs            Value      Obs
+
+                               -100   503913         11157333   476518
+                               -100   496827         11157333   476519
+                               -100   496826         11157333   476520
+                               -100   496825         11157333   476521
+                               -100   492167         11157333   476522
+                                           The SAS System       14:28 Tuesday, September 7, 2010   7
+
+                                      The UNIVARIATE Procedure
+                                      Variable:  pct_net_diff
+
+                                              Moments
+
+                  N                      515114    Sum Weights             515114
+                  Mean               -0.0012606    Sum Observations    -649.37406
+                  Std Deviation      1.01249161    Variance            1.02513927
+                  Skewness           91.3793607    Kurtosis            43151.5638
+                  Uncorrected SS     528063.381    Corrected SS        528062.563
+                  Coeff Variation     -80315.59    Std Error Mean      0.00141072
+
+
+                                     Basic Statistical Measures
+ 
+                           Location                    Variability
+
+                       Mean     -0.00126     Std Deviation            1.01249
+                       Median    0.00000     Variance                 1.02514
+                       Mode      0.00000     Range                  412.49664
+                                             Interquartile Range            0
+
+
+                                     Tests for Location: Mu0=0
+ 
+                          Test           -Statistic-    -----p Value------
+
+                          Student's t    t  -0.89362    Pr > |t|    0.3715
+                          Sign           M     349.5    Pr >= |M|   0.0227
+                          Signed Rank    S  28245299    Pr >= |S|   0.0004
+
+
+                                      Quantiles (Definition 5)
+ 
+                                      Quantile        Estimate
+
+                                      100% Max       3.125E+02
+                                      99%            1.000E-05
+                                      95%            1.000E-05
+                                      90%            0.000E+00
+                                      75% Q3         0.000E+00
+                                      50% Median     0.000E+00
+                                      25% Q1         0.000E+00
+                                      10%            0.000E+00
+                                      5%            -1.000E-05
+                                      1%            -1.000E-05
+                                      0% Min        -1.000E+02
+
+
+                                        Extreme Observations
+ 
+                              ----Lowest----        ------Highest-----
+ 
+                              Value      Obs            Value      Obs
+
+                               -100   503913          52.4182   211080
+                               -100   496827         126.7651   146924
+                               -100   496826         204.0091   129076
+                               -100   496825         312.2500   155449
+                               -100   492167         312.4966   117860

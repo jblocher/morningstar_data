@@ -1,0 +1,52 @@
+                                           The SAS System          17:08 Monday, August 16, 2010   1
+
+                                       The CONTENTS Procedure
+
+Data Set Name        MORN.FLOWS_CLEAN                                     Observations          1077
+Member Type          DATA                                                 Variables             5   
+Engine               V9                                                   Indexes               0   
+Created              Monday, August 16, 2010 05:08:48 PM                  Observation Length    48  
+Last Modified        Monday, August 16, 2010 05:08:48 PM                  Deleted Observations  0   
+Protection                                                                Compressed            NO  
+Data Set Type                                                             Sorted                NO  
+Label                                                                                               
+Data Representation  SOLARIS_X86_64, LINUX_X86_64,                                                  
+                     ALPHA_TRU64, LINUX_IA64                                                        
+Encoding             latin1  Western (ISO)                                                          
+
+
+                                 Engine/Host Dependent Information
+
+           Data Set Page Size          8192                                              
+           Number of Data Set Pages    7                                                 
+           First Data Page             1                                                 
+           Max Obs per Page            169                                               
+           Obs in First Data Page      118                                               
+           Number of Data Set Repairs  0                                                 
+           Filename                    /largefs/jabloche/morningstar/flows_clean.sas7bdat
+           Release Created             9.0201M0                                          
+           Host Created                Linux                                             
+           Inode Number                440352                                            
+           Access Permission           rw-r-----                                         
+           Owner Name                  jabloche                                          
+           File Size (bytes)           65536                                             
+
+
+                            Alphabetic List of Variables and Attributes
+ 
+                          #    Variable     Type    Len    Label
+
+                          1    FundId       Char     10    Fund ID       
+                          4    flow         Num       8                  
+                          5    label        Char      9                  
+                          2    port_date    Num       8    Portfolio Date
+                          3    port_year    Num       8                  
+                                       Time Frequency of data      17:08 Monday, August 16, 2010   2
+
+                                         The FREQ Procedure
+
+                                                         Cumulative    Cumulative
+                   port_year    Frequency     Percent     Frequency      Percent
+                   --------------------------------------------------------------
+                        2009         834       77.44           834        77.44  
+                        2010         243       22.56          1077       100.00  

@@ -1,0 +1,23 @@
+
+Portfolio file:
+Fundid;portfoliodate;stkid;cusip;type;country;security;shares;sharechange;marketvalue;weight;maturity;coupon;industry;sector
+
+
+Portfolio stats:
+Fundid;portfoliodate;previousportfoliodate;totinvestment;#holdings;equitystylebox;fixedincome stylebox;%stock(long);%bond(long);%preferred(long);%convertible(long);%cash(long);
+%other(long);%stock(net);%bond(net);%preferred(net);%convertible(net);%cash(net);%other(net);%sector1-12
+
+Sectors:
+1 – Software
+2 – Hardware
+3 – Media
+4 – Telecommunication
+5 – Healthcare
+6 – Consumer Service
+7 – Business Service
+8 – Financial Service
+9 – Consumer Goods
+10 – Industrial Materials
+11 – Energy
+12 – Utilities
+

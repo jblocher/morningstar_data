@@ -1,0 +1,113 @@
+1                                                          The SAS System                              17:08 Monday, August 16, 2010
+
+NOTE: Copyright (c) 2002-2008 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) Proprietary Software 9.2 (TS1M0) 
+      Licensed to UNIVERSITY OF NORTH CAROLINA CHAPEL HILL - T&R, Site 0070084073.
+NOTE: This session is executing on the Linux 2.6.18-194.el5 platform.
+
+
+
+You are running SAS 9. Some SAS 8 files will be automatically converted 
+by the V9 engine; others are incompatible.  Please see 
+http://support.sas.com/rnd/migration/planning/platform/64bit.html
+
+PROC MIGRATE will preserve current SAS file attributes and is 
+recommended for converting all your SAS libraries from any 
+SAS 8 release to SAS 9.  For details and examples, please see
+http://support.sas.com/rnd/migration/index.html
+
+
+This message is contained in the SAS news file, and is presented upon
+initialization.  Edit the file "news" in the "misc/base" directory to
+display site-specific news and information in the program log.
+The command line option "-nonews" will prevent this display.
+
+
+
+
+NOTE: SAS initialization used:
+      real time           1.28 seconds
+      cpu time            0.06 seconds
+      
+1          /* **********************************************************************************/
+2          /* CREATED BY:      Jesse Blocher (UNC-Chapel Hill)
+3          /* MODIFIED BY:
+4          /* DATE CREATED:    Aug 2010
+5          /* PROG NAME:       flows_clean.sas
+6          /* Project:         Morningstar US Open Ended Funds Portfolio Data Merge
+7          /* This File:       Flows are much better; mostly renames variables
+8          /************************************************************************************/
+9          
+10         %include 'morn_merge_header.sas'; *header file with basic options and libraries;
+NOTE: Libref MORN was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /largefs/jabloche/morningstar
+NOTE: Libref MS_WORK was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /largefs/jabloche/ms_work
+18         %include 'morn_macros.sas'; *Macro file;
+322        
+323        data morn.flows_clean (drop = col1-col3);
+324        	set morn.flows;
+NOTE: Data file MORN.FLOWS.DATA is in a format that is native to another host, or the file encoding 
+      does not match the session encoding. Cross Environment Data Access will be used, which might 
+      require additional CPU resources and might reduce performance.
+325        	
+326        	FundId = col1;
+327        	label FundId = 'Fund ID';
+328        	
+329        	port_date = col2;
+330        	label port_date = 'Portfolio Date';
+331        	port_year = year(port_date);
+332        	
+333        	flow = col3;
+334        	label = 'Fund Flow';
+335        run;
+
+NOTE: There were 1077 observations read from the data set MORN.FLOWS.
+NOTE: The data set MORN.FLOWS_CLEAN has 1077 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           1.44 seconds
+      cpu time            0.04 seconds
+      
+
+336        
+337        proc contents data = morn.flows_clean; run;
+
+NOTE: PROCEDURE CONTENTS used (Total process time):
+      real time           0.40 seconds
+      cpu time            0.04 seconds
+      
+NOTE: The PROCEDURE CONTENTS printed page 1.
+
+338        
+339        proc sort data = morn.flows_clean out = tester nodupkey;
+340        by fundid port_date;
+341        run;
+
+NOTE: There were 1077 observations read from the data set MORN.FLOWS_CLEAN.
+NOTE: 0 observations with duplicate key values were deleted.
+NOTE: The data set WORK.TESTER has 1077 observations and 5 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.00 seconds
+      
+
+342        
+343        title 'Time Frequency of data';
+344        proc freq data = morn.flows_clean;
+345        tables port_year;
+346        run;
+
+NOTE: There were 1077 observations read from the data set MORN.FLOWS_CLEAN.
+NOTE: The PROCEDURE FREQ printed page 2.
+NOTE: PROCEDURE FREQ used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           7.17 seconds
+      cpu time            0.16 seconds
+      

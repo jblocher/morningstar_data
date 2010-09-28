@@ -1,0 +1,246 @@
+1                                                          The SAS System                           14:28 Tuesday, September 7, 2010
+
+NOTE: Copyright (c) 2002-2008 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) Proprietary Software 9.2 (TS1M0) 
+      Licensed to UNIVERSITY OF NORTH CAROLINA CHAPEL HILL - T&R, Site 0070084073.
+NOTE: This session is executing on the Linux 2.6.18-194.el5 platform.
+
+
+
+You are running SAS 9. Some SAS 8 files will be automatically converted 
+by the V9 engine; others are incompatible.  Please see 
+http://support.sas.com/rnd/migration/planning/platform/64bit.html
+
+PROC MIGRATE will preserve current SAS file attributes and is 
+recommended for converting all your SAS libraries from any 
+SAS 8 release to SAS 9.  For details and examples, please see
+http://support.sas.com/rnd/migration/index.html
+
+
+This message is contained in the SAS news file, and is presented upon
+initialization.  Edit the file "news" in the "misc/base" directory to
+display site-specific news and information in the program log.
+The command line option "-nonews" will prevent this display.
+
+
+
+
+NOTE: SAS initialization used:
+      real time           0.16 seconds
+      cpu time            0.01 seconds
+      
+1          /* *************************************************************************/
+2          /* CREATED BY:      Jesse Blocher (UNC-Chapel Hill)
+3          /* MODIFIED BY:
+4          /* DATE CREATED:    Aug 2010
+5          /* PROG NAME:       merge_port_detail_stats.sas
+6          /* Project:         Create Morningstar Open Ended US fund DB
+7          /* This File:       Merge morningstar portfolio detail data with portfolio statistics
+8          /************************************************************************************/
+9          
+10         %include 'morn_merge_header.sas'; *header file with basic options and libraries;
+NOTE: Libref MORN was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /largefs/jabloche/morningstar
+NOTE: Libref MS_WORK was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /largefs/jabloche/ms_work
+18         
+19         
+20         /* Datasets required to run:
+21          * morn.portfolio_type_codes_renamed		: Excel Sheet converted to SAS via Stat Transfer
+22          * morn.sector_codes						: Twelve Sector Codes manually input into dataset
+23          * morn.porthold_main_clean_fixed			: Text Files convered via Stat Transfer, merged,
+23       ! cleaned
+24          * morn.portfolio_statistics_only			: Fund level stats, unique by fundid, portfolio date
+25          */
+26         
+27         /* Datasets Produced:
+28          * morn.master_morn_holdings				: Master Dataset with all holdings and fund stats
+29          */
+30          ** Main Data **;
+31         /*
+32         proc sql;
+33         	create table portfolio_holdings_merged1 as
+34         	select a.*, b.sector_name
+35         	from morn.porthold_main_clean_fixed as a
+36         	left join
+37         	morn.sector_codes as b
+38         	on a.sector_code = b.sector_code;
+39         	
+40         	create table morn.portfolio_holdings_merged as
+41         	select a.*, b.type_name
+42         	from portfolio_holdings_merged1 as a
+43         	left join
+44         	morn.portfolio_type_codes_renamed as b
+45         	on a.type_cd = b.type_cd;
+46         	
+47         	create table morn.master_morn_holdings as
+48         	select a.*, b.*
+49         	from morn.portfolio_holdings_merged as a
+50         	left join
+51         	morn.portfolio_statistics_only as b
+52         	on a.fundid = b.fundid and a.port_date = b.port_date
+53         	order by port_date, fundid;
+54         quit;
+55         */
+56         proc contents data = morn.master_morn_holdings;
+
+NOTE: The PROCEDURE CONTENTS printed page 1.
+NOTE: PROCEDURE CONTENTS used (Total process time):
+      real time           0.61 seconds
+      cpu time            0.03 seconds
+      
+
+57         proc print data = morn.master_morn_holdings (obs = 100);
+58         run;
+
+NOTE: There were 100 observations read from the data set MORN.MASTER_MORN_HOLDINGS.
+NOTE: The PROCEDURE PRINT printed page 2.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.05 seconds
+      cpu time            0.01 seconds
+      
+
+59         
+60         ** Check Duplicates;
+61         proc sort data = morn.master_morn_holdings out = tester nodupkey;
+62         where ~missing(cusip);
+63         by port_date fundid cusip;
+64         run;
+
+NOTE: There were 82452724 observations read from the data set MORN.MASTER_MORN_HOLDINGS.
+      WHERE not MISSING(cusip);
+NOTE: 23415 observations with duplicate key values were deleted.
+NOTE: The data set WORK.TESTER has 82429309 observations and 49 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           1:28:18.96
+      cpu time            4:15.52
+      
+
+65         * maybe description is missing;
+66         proc sort data = morn.master_morn_holdings out = tester1 nodupkey;
+67         where ~missing(security);
+68         by port_date fundid security;
+69         run;
+
+NOTE: There were 92556076 observations read from the data set MORN.MASTER_MORN_HOLDINGS.
+      WHERE not MISSING(security);
+NOTE: 12136865 observations with duplicate key values were deleted.
+NOTE: The data set WORK.TESTER1 has 80419211 observations and 49 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           1:12:28.78
+      cpu time            4:42.55
+      
+
+70         * maybe description is missing;
+71         proc sort data = morn.master_morn_holdings out = tester2 nodupkey;
+72         where ~missing(marketvalue);
+73         by port_date fundid marketvalue;
+74         run;
+
+NOTE: There were 92561401 observations read from the data set MORN.MASTER_MORN_HOLDINGS.
+      WHERE not MISSING(marketvalue);
+NOTE: 2270294 observations with duplicate key values were deleted.
+NOTE: The data set WORK.TESTER2 has 90291107 observations and 49 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           55:53.21
+      cpu time            4:47.55
+      
+
+75         
+76         /*
+77         proc freq data = sorted_morn_holds noprint ;
+78         by port_date ;
+79         table fundid / out = holdings_DUPS (keep = port_date fundid weight marketvalue cusip
+79       ! Count where = (Count > 1)) ;
+80         run ;
+81         
+82         /*
+83         **********
+84         This worked. I now have a unique identifier - don't run this again
+85         **********
+86         *rowid is a unique identifier since we do not have one at the holdings level necessarily;
+87         data morn.master_morn_holdings;
+88         	set morn.master_morn_holdings;
+89         	rowid = _N_;
+90         run;
+91         proc sort data = morn.master_morn_holdings out = tester nodupkey;
+92         by port_date fundid rowid;
+93         run;
+94         */
+95         
+96         
+97         
+98         
+99         **** Now, lets get some stats on it ***;
+100        
+101        proc sql;
+102        	create table morn_port_stats_sum as
+103        	select 	port_date, fundid,
+104        			sum(weight) as sum_port_weight,
+105        			sum(marketvalue) as sum_mkt_val,
+106        			count(type_cd) as num_holdings_calc
+107        	from morn.porthold_main_clean_fixed
+108        	group by port_date, fundid;
+NOTE: Table WORK.MORN_PORT_STATS_SUM created, with 515114 rows and 5 columns.
+
+109        
+110        	create table ms_work.morn_port_stats as
+111        	select 	a.port_date, a.fundid, year(a.port_date) as port_year, b.sum_port_weight,
+112        			a.tot_investment, b.sum_mkt_val,
+113        			a.num_holdings, b.num_holdings_calc,
+114        			a.pct_long_bond, a.pct_long_cash, a.pct_long_convertible, a.pct_long_other,
+114      ! a.pct_long_preferred, a.pct_long_stock,
+115        			a.pct_net_bond, a.pct_net_cash, a.pct_net_convertible, a.pct_net_other,
+115      ! a.pct_net_preferred, a.pct_net_stock
+116        	from morn.portfolio_statistics_only as a, morn_port_stats_sum as b
+117        	where a.port_date = b.port_date and a.fundid = b.fundid;
+NOTE: Table MS_WORK.MORN_PORT_STATS created, with 515114 rows and 20 columns.
+
+118        quit;
+NOTE: PROCEDURE SQL used (Total process time):
+      real time           25:38.85
+      cpu time            1:35.98
+      
+
+119        
+120        data test_morn_stats;
+121        	set ms_work.morn_port_stats;
+122        	** all of these should be zero;
+123        	mkt_val_diff = sum_mkt_val - tot_investment;
+124        	weight_diff = sum_port_weight - 100;
+125        	num_hold_diff = num_holdings_calc - num_holdings;
+126        	
+127        	pct_long_diff = pct_long_bond+ pct_long_cash+ pct_long_convertible+ pct_long_other+
+127      ! pct_long_preferred+ pct_long_stock - 100;
+128        	pct_net_diff = pct_net_bond+ pct_net_cash+ pct_net_convertible+ pct_net_other+
+128      ! pct_net_preferred+ pct_net_stock - 100;
+129        run;
+
+NOTE: Missing values were generated as a result of performing an operation on missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      14 at 124:32   
+NOTE: There were 515114 observations read from the data set MS_WORK.MORN_PORT_STATS.
+NOTE: The data set WORK.TEST_MORN_STATS has 515114 observations and 25 variables.
+NOTE: DATA statement used (Total process time):
+      real time           2.13 seconds
+      cpu time            0.26 seconds
+      
+
+130        
+131        proc univariate data = test_morn_stats;
+132        var mkt_val_diff weight_diff num_hold_diff pct_long_diff pct_net_diff;
+133        run;
+
+NOTE: The PROCEDURE UNIVARIATE printed pages 3-7.
+NOTE: PROCEDURE UNIVARIATE used (Total process time):
+      real time           0.68 seconds
+      cpu time            0.58 seconds
+      
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           4:02:23.73
+      cpu time            15:22.51
+      

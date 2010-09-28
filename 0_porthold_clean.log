@@ -1,0 +1,351 @@
+1                                                          The SAS System                           14:48 Wednesday, August 18, 2010
+
+NOTE: Copyright (c) 2002-2008 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) Proprietary Software 9.2 (TS1M0) 
+      Licensed to UNIVERSITY OF NORTH CAROLINA CHAPEL HILL - T&R, Site 0070084073.
+NOTE: This session is executing on the Linux 2.6.18-194.el5 platform.
+
+
+
+You are running SAS 9. Some SAS 8 files will be automatically converted 
+by the V9 engine; others are incompatible.  Please see 
+http://support.sas.com/rnd/migration/planning/platform/64bit.html
+
+PROC MIGRATE will preserve current SAS file attributes and is 
+recommended for converting all your SAS libraries from any 
+SAS 8 release to SAS 9.  For details and examples, please see
+http://support.sas.com/rnd/migration/index.html
+
+
+This message is contained in the SAS news file, and is presented upon
+initialization.  Edit the file "news" in the "misc/base" directory to
+display site-specific news and information in the program log.
+The command line option "-nonews" will prevent this display.
+
+
+
+
+NOTE: SAS initialization used:
+      real time           0.60 seconds
+      cpu time            0.04 seconds
+      
+1          /* **********************************************************************************/
+2          /* CREATED BY:      Jesse Blocher (UNC-Chapel Hill)
+3          /* MODIFIED BY:
+4          /* DATE CREATED:    Aug 2010
+5          /* PROG NAME:       porthold_clean.sas
+6          /* Project:         Morningstar US Open Ended Funds Portfolio Data Merge
+7          /* This File:       Calls macros to clean the Portfolio Holdings data. Yuk.
+8          /************************************************************************************/
+9          
+10         %include 'morn_merge_header.sas'; *header file with basic options and libraries;
+NOTE: Libref MORN was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /largefs/jabloche/morningstar
+NOTE: Libref MS_WORK was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /largefs/jabloche/ms_work
+18         %include 'morn_macros.sas'; *Macro file;
+322        
+323        
+324        * Get contents to see what data types we are dealing with;
+325        %macro process_porthold();
+326        	proc contents data = morn.porthold1980to1992 ;
+327        	proc print data = morn.porthold1980to1992 (obs = 100);
+328        	run;
+329        	
+330        	%do ds = 1993 %to 2009;
+331        	proc contents data = morn.porthold&ds ;
+332        	proc print data = morn.porthold&ds (obs = 100);
+333        	run;
+334        	%end;
+335        %mend process_porthold;
+336        
+337        %macro all_contents(base = , start =, finish =);
+338        	%do end = &start %to &finish;
+339        	proc contents data = &base.&end;
+340        	run;
+341        	%end;
+342        
+343        %mend;
+344        
+345        *%process_porthold;
+346        /*
+347        
+348        *****************************************;
+349        ** Process the early 1980 to 1992 dataset;
+350        *****************************************;
+351        
+352        * first, we divide on col8, keep those that pass in our base dataset;
+353        %col8_num_only(ds_in=morn.porthold1980to1992, ds_out_clean=ms_work.porthold1980to1992,
+353      ! ds_out_dirty=ms_work.porthold1980to1992dirty);
+354        
+355        * next we check column9. Here, because we know col9 is ok, we expect the dirty data set
+355      ! to be empty;
+356        %col9_num_only(ds_in=ms_work.porthold1980to1992dirty,
+356      ! ds_out_clean=ms_work.porthold1980to1992clean,
+356      ! ds_out_dirty=ms_work.porthold1980to1992dirty2);
+357        
+358        
+359        *****************************************;
+360        ** Now, Append 1993 to 2001 because they do not have data issues;
+361        *****************************************;
+362        
+363        
+364        data ms_work.porthold2001_1980;
+365        	set morn.porthold2001;
+366        run;
+367        
+368        proc append base = ms_work.porthold2001_1980 data = ms_work.porthold1980to1992 force;
+369        proc append base = ms_work.porthold2001_1980 data = ms_work.porthold1980to1992clean force
+369      ! ;
+370        proc append base = ms_work.porthold2001_1980 data = morn.porthold1993 force;
+371        proc append base = ms_work.porthold2001_1980 data = morn.porthold1994 force;
+372        proc append base = ms_work.porthold2001_1980 data = morn.porthold1995 force;
+373        proc append base = ms_work.porthold2001_1980 data = morn.porthold1996 force;
+374        proc append base = ms_work.porthold2001_1980 data = morn.porthold1997 force;
+375        proc append base = ms_work.porthold2001_1980 data = morn.porthold1998 force;
+376        proc append base = ms_work.porthold2001_1980 data = morn.porthold1999 force;
+377        proc append base = ms_work.porthold2001_1980 data = morn.porthold2000 force;
+378        run;
+379        
+380        *****************************************;
+381        ** Now, 2009 because it has the longest description field;
+382        *****************************************;
+383        
+384        
+385        * We are going to bail on doing this in SAS. Dump it out to Excel and clean manually;
+386        
+387        %col8_num_only(ds_in=morn.porthold2009, ds_out_clean=ms_work.porthold2009,
+387      ! ds_out_dirty=morn.porthold2009dirty, lastcol = col20);
+388        %col8_num_only(ds_in=morn.porthold2008, ds_out_clean=ms_work.porthold2008,
+388      ! ds_out_dirty=morn.porthold2008dirty, lastcol = col21);
+389        %col8_num_only(ds_in=morn.porthold2007, ds_out_clean=ms_work.porthold2007,
+389      ! ds_out_dirty=morn.porthold2007dirty, lastcol = col21);
+390        %col8_num_only(ds_in=morn.porthold2006, ds_out_clean=ms_work.porthold2006,
+390      ! ds_out_dirty=morn.porthold2006dirty, lastcol = col17);
+391        %col8_num_only(ds_in=morn.porthold2005, ds_out_clean=ms_work.porthold2005,
+391      ! ds_out_dirty=morn.porthold2005dirty, lastcol = col16);
+392        %col8_num_only(ds_in=morn.porthold2004, ds_out_clean=ms_work.porthold2004,
+392      ! ds_out_dirty=morn.porthold2004dirty, lastcol = col16);
+393        %col8_num_only(ds_in=morn.porthold2003, ds_out_clean=ms_work.porthold2003,
+393      ! ds_out_dirty=morn.porthold2003dirty, lastcol = col15);
+394        %col8_num_only(ds_in=morn.porthold2002, ds_out_clean=ms_work.porthold2002,
+394      ! ds_out_dirty=morn.porthold2002dirty, lastcol = col16);
+395        
+396        
+397        
+398        *proc contents data = ms_work.porthold2001_1980;run;
+399        *%all_contents(base = ms_work.porthold, start=2002, finish=2009);
+400        
+401        *****************************************;
+402        ***** Here, for the first (very large) set of already clean data, we rename and format
+402      ! all the fields *******;
+403        *****************************************;
+404        
+405        %set_field_types(ds_in=ms_work.porthold2001_1980, ds_out=tempporthold2001_1980,
+405      ! err_out=ms_work.err2001_1980);
+406        %iterate_set_fields();
+407        
+408        ** Testing ;
+409        *proc contents data = tempporthold2001_1980;run;
+410        *%all_contents(base = temp, start=2002, finish=2009);
+411        
+412        ** Now, we append the main holdings data all together ;
+413        data morn.porthold_main_clean;
+414        	set tempporthold2001_1980;
+415        run;
+416        
+417        %macro iterate_append();
+418        	%do yy = 2002 %to 2009;
+419        		proc append base = morn.porthold_main_clean data = temp&yy ; run;
+420        	%end;
+421        %mend;
+422        
+423        %iterate_append();
+424        
+425        *****************************************;
+426        *** Now, we bring in the manually cleaned data. This was all dumped out above and is a
+426      ! small part of the dataset;
+427        *****************************************;
+428        
+429        * Testing;
+430        *proc contents data = ms_work.porthold2002_6clean_manually;run;
+431        *proc contents data = ms_work.porthold2007clean_manually;run;
+432        *proc contents data = ms_work.porthold2008clean_manually;run;
+433        *proc contents data = ms_work.porthold2009clean_manually;run;
+434        
+435        
+436        %clean_datatype2(ds_in=ms_work.porthold2002_6clean_manually, ds_out_clean=temp2002_6,
+436      ! ds_out_dirty=dirty2002_6);
+437        %clean_datatype2(ds_in=ms_work.porthold2007clean_manually, ds_out_clean=temp2007,
+437      ! ds_out_dirty=dirty2007);
+438        %clean_datatype2(ds_in=ms_work.porthold2008clean_manually, ds_out_clean=temp2008,
+438      ! ds_out_dirty=dirty2008);
+439        %clean_datatype2(ds_in=ms_work.porthold2009clean_manually, ds_out_clean=temp2009,
+439      ! ds_out_dirty=dirty2009);
+440        
+441        *****************************************;
+442        * This is only four records that dumped out above, missed my initial filter;
+443        *****************************************;
+444        
+445        %clean_datatype(ds_in=ms_work.fixed_errdata, ds_out_clean=temp_err_fixed,
+445      ! ds_out_dirty=hopefully_not_still_dirty);
+446        
+447        *proc contents data = temp2002_6;run;
+448        *proc contents data = temp2007;run;
+449        *proc contents data = temp2008;run;
+450        *proc contents data = temp2009;run;
+451        
+452        data ms_work.manually_cleaned_master;
+453        	set temp2008;
+454        run;
+455        proc append base = ms_work.manually_cleaned_master data = temp2007 force; run;
+456        proc append base = ms_work.manually_cleaned_master data = temp2002_6 force; run;
+457        proc append base = ms_work.manually_cleaned_master data = temp2009 force; run;
+458        proc append base = ms_work.manually_cleaned_master data = temp_err_fixed force; run;
+459        
+460        %set_field_types(ds_in=ms_work.manually_cleaned_master, ds_out=temp_cleaned_master);
+461        
+462        proc append base = morn.porthold_main_clean data = temp_cleaned_master; run;
+463        */
+464        *** DONE ***;
+465        ** Now, Summary Stats - Pre Cleaning of data VALUES now that we have the types ok;
+466        title 'Pre-Fixing Stats';
+467        proc contents data = morn.porthold_main_clean; run;
+
+NOTE: PROCEDURE CONTENTS used (Total process time):
+      real time           0.59 seconds
+      cpu time            0.04 seconds
+      
+NOTE: The PROCEDURE CONTENTS printed page 1.
+
+468        
+469        proc freq data = morn.porthold_main_clean;
+470        tables sector_code industry_code mat_year port_year type_cd country;
+471        run;
+
+NOTE: There were 92561477 observations read from the data set MORN.PORTHOLD_MAIN_CLEAN.
+NOTE: The PROCEDURE FREQ printed page 2.
+NOTE: PROCEDURE FREQ used (Total process time):
+      real time           6:23.54
+      cpu time            1:20.93
+      
+
+472        
+473        options ls = max;
+474        proc means data = morn.porthold_main_clean N NMISS mean std min p1 p5 p25 p50 p75 p95 p99 max;
+475        var shares sharechange marketvalue weight coupon;
+476        run;
+
+NOTE: There were 92561477 observations read from the data set MORN.PORTHOLD_MAIN_CLEAN.
+NOTE: The PROCEDURE MEANS printed page 3.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           11:23.94
+      cpu time            6:20.57
+      
+
+477        
+478        proc sql;
+479        	title 'How many records have invalid maturity i.e. before portfolio date';
+480        	select count(*)
+481        	from morn.porthold_main_clean
+482        	where maturity < port_date and ~missing(maturity);
+483        	
+484        	
+485        quit;
+NOTE: The PROCEDURE SQL printed page 4.
+NOTE: PROCEDURE SQL used (Total process time):
+      real time           5:50.20
+      cpu time            33.16 seconds
+      
+
+486        
+487        title 'Port Year 1900 record';
+488        proc print data = morn.porthold_main_clean (obs = 50);
+489        where port_year = 1900;
+490        run;
+
+NOTE: There were 1 observations read from the data set MORN.PORTHOLD_MAIN_CLEAN.
+      WHERE port_year=1900;
+NOTE: The PROCEDURE PRINT printed page 5.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           5:52.37
+      cpu time            22.04 seconds
+      
+
+491        
+492        
+493        data morn.porthold_main_clean_fixed;
+494        	set morn.porthold_main_clean;
+495        	* First, fix non-integer sector codes. Going to set to missing;
+496        	if mod(sector_code,1) ne 0 then sector_code = .;
+497        	
+498        	* Second fix dates. One Port_date of 1900? Check this one out. Is it 2000?;
+499        	* checked. It is not 2000. I do not see a good place for it, but it seems ok to delete;
+500        	if port_year = 1900 then delete;
+501        
+502        	* Third, Maturity Dates. Set all earlier than 1980 to missing;
+503        	if mat_year < 1980 then do;
+504        		maturity = .;
+505        		mat_year = .;
+506        	end;
+507        	
+508        	* Fourth, take care of zeros. Lots of them. In Shares, ShareChange, MarketValue, Weight, Coupon. In all cases, set to missing, except maybe sharechange.;
+509        	* If marketvalue = 0 then marketvalue = .;
+510        	* if weight = 0 then weight = .;
+511        	* if coupon = 0 then coupon =.;
+512        	*** Not sure about this now ***;
+513        run;
+
+NOTE: Missing values were generated as a result of performing an operation on missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      39349294 at 496:5   
+NOTE: There were 92561477 observations read from the data set MORN.PORTHOLD_MAIN_CLEAN.
+NOTE: The data set MORN.PORTHOLD_MAIN_CLEAN_FIXED has 92561476 observations and 17 variables.
+NOTE: DATA statement used (Total process time):
+      real time           9:20.70
+      cpu time            1:07.97
+      
+
+514        
+515        ** Now, Summary Stats - Post Fix;
+516        title '***************  Post-Fixing Stats ********* This is final dataset *************';
+517        proc contents data = morn.porthold_main_clean_fixed; run;
+
+NOTE: PROCEDURE CONTENTS used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+NOTE: The PROCEDURE CONTENTS printed page 6.
+
+518        
+519        proc freq data = morn.porthold_main_clean_fixed;
+520        tables sector_code industry_code mat_year port_year type_cd country;
+521        run;
+
+NOTE: There were 92561476 observations read from the data set MORN.PORTHOLD_MAIN_CLEAN_FIXED.
+NOTE: The PROCEDURE FREQ printed page 7.
+NOTE: PROCEDURE FREQ used (Total process time):
+      real time           6:01.48
+      cpu time            1:23.35
+      
+
+522        
+523        options ls = max;
+524        proc means data = morn.porthold_main_clean_fixed N NMISS mean std min p1 p5 p25 p50 p75 p95 p99 max;
+525        var shares sharechange marketvalue weight coupon;
+526        run;
+
+NOTE: There were 92561476 observations read from the data set MORN.PORTHOLD_MAIN_CLEAN_FIXED.
+NOTE: The PROCEDURE MEANS printed page 8.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           11:14.52
+      cpu time            6:18.23
+      
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           56:08.65
+      cpu time            17:26.35
+      

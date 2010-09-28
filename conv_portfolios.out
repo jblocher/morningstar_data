@@ -1,0 +1,78 @@
+Sender: LSF System <lsfadmin@bc09-n03>
+Subject: Job 779982: <st conv_portfolios.stcmd> Exited
+
+Job <st conv_portfolios.stcmd> was submitted from host <bc14-n13> by user <jabloche> in cluster <lucky>.
+Job was executed on host(s) <bc09-n03>, in queue <week>, as user <jabloche> in cluster <lucky>.
+</afs/isis.unc.edu/home/j/a/jabloche> was used as the home directory.
+</netscr/jabloche/morningstar> was used as the working directory.
+Started at Thu Jul 15 14:21:19 2010
+Results reported at Thu Jul 15 17:02:48 2010
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+st conv_portfolios.stcmd
+------------------------------------------------------------
+
+TERM_OWNER: job killed by owner.
+Exited with exit code 130.
+
+Resource usage summary:
+
+    CPU time   :   9551.39 sec.
+    Max Memory :         7 MB
+    Max Swap   :       279 MB
+
+    Max Processes  :         5
+    Max Threads    :         5
+
+The output (if any) follows:
+
+Your home directory for this job is /netscr/jabloche
+Stat/Transfer (c) 1986-2009 Circle Systems, Inc.
+www.stattransfer.com 
+Version 10.1.1551.1015 - 64 Bit Linux
+
+Serial:	B2UY5-SMBQV-VQE3
+User:	Research Computing - UNC-Chapel Hill
+License Type:	Linux - Single Machine Lease
+Status:	License OK - Expires February 28, 2011
+Transferring to SAS Data File - Version Nine: /largefs/jabloche/morningstar/porthold.sas7bdat
+15 variables and 1562518 records read from /largefs/jabloche/morningstar/porthold1980to1992.txt
+
+15 variables and 678862 records read from /largefs/jabloche/morningstar/porthold1993.txt
+
+15 variables and 875096 records read from /largefs/jabloche/morningstar/porthold1994.txt
+
+15 variables and 960487 records read from /largefs/jabloche/morningstar/porthold1995.txt
+
+15 variables and 1049280 records read from /largefs/jabloche/morningstar/porthold1996.txt
+
+15 variables and 1554090 records read from /largefs/jabloche/morningstar/porthold1997.txt
+
+15 variables and 2408552 records read from /largefs/jabloche/morningstar/porthold1998.txt
+
+15 variables and 2812247 records read from /largefs/jabloche/morningstar/porthold1999.txt
+
+15 variables and 3809712 records read from /largefs/jabloche/morningstar/porthold2000.txt
+
+15 variables and 4569952 records read from /largefs/jabloche/morningstar/porthold2001.txt
+
+16 variables and 6406959 records read from /largefs/jabloche/morningstar/porthold2002.txt
+
+15 variables and 7475648 records read from /largefs/jabloche/morningstar/porthold2003.txt
+
+16 variables and 7776678 records read from /largefs/jabloche/morningstar/porthold2004.txt
+
+16 variables and 7761390 records read from /largefs/jabloche/morningstar/porthold2005.txt
+
+17 variables and 8415838 records read from /largefs/jabloche/morningstar/porthold2006.txt
+
+21 variables and 10200054 records read from /largefs/jabloche/morningstar/porthold2007.txt
+
+21 variables and 11935378 records read from /largefs/jabloche/morningstar/porthold2008.txt
+
+20 variables and 12308762 records read from /largefs/jabloche/morningstar/porthold2009.txt
+
+92561503 records written to /largefs/jabloche/morningstar/porthold.sas7bdat

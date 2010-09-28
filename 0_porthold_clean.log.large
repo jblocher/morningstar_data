@@ -1,0 +1,1199 @@
+1                                                          The SAS System                           17:20 Wednesday, August 11, 2010
+
+NOTE: Copyright (c) 2002-2008 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) Proprietary Software 9.2 (TS1M0) 
+      Licensed to UNIVERSITY OF NORTH CAROLINA CHAPEL HILL - T&R, Site 0070084073.
+NOTE: This session is executing on the Linux 2.6.18-194.el5 platform.
+
+
+
+You are running SAS 9. Some SAS 8 files will be automatically converted 
+by the V9 engine; others are incompatible.  Please see 
+http://support.sas.com/rnd/migration/planning/platform/64bit.html
+
+PROC MIGRATE will preserve current SAS file attributes and is 
+recommended for converting all your SAS libraries from any 
+SAS 8 release to SAS 9.  For details and examples, please see
+http://support.sas.com/rnd/migration/index.html
+
+
+This message is contained in the SAS news file, and is presented upon
+initialization.  Edit the file "news" in the "misc/base" directory to
+display site-specific news and information in the program log.
+The command line option "-nonews" will prevent this display.
+
+
+
+
+NOTE: SAS initialization used:
+      real time           0.20 seconds
+      cpu time            0.02 seconds
+      
+1          /* **********************************************************************************/
+2          /* CREATED BY:      Jesse Blocher (UNC-Chapel Hill)
+3          /* MODIFIED BY:
+4          /* DATE CREATED:    Aug 2010
+5          /* PROG NAME:       porthold_clean.sas
+6          /* Project:         Morningstar US Open Ended Funds Portfolio Data Merge
+7          /* This File:       Calls macros to clean the Portfolio Holdings data. Yuk.
+8          /************************************************************************************/
+9          
+10         %include 'morn_merge_header.sas'; *header file with basic options and libraries;
+NOTE: Libref MORN was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /largefs/jabloche/morningstar
+NOTE: Libref MS_WORK was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /largefs/jabloche/ms_work
+18         %include 'morn_macros.sas'; *Macro file;
+144        
+145        
+146        * Get contents to see what data types we are dealing with;
+147        %macro process_porthold();
+148        	proc contents data = morn.porthold1980to1992 ;
+149        	proc print data = morn.porthold1980to1992 (obs = 100);
+150        	run;
+151        	
+152        	%do ds = 1993 %to 2009;
+153        	proc contents data = morn.porthold&ds ;
+154        	proc print data = morn.porthold&ds (obs = 100);
+155        	run;
+156        	%end;
+157        %mend process_porthold;
+158        
+159        *%process_porthold;
+160        /*
+161        
+162        *****************************************;
+163        ** Process the early 1980 to 1992 dataset;
+164        *****************************************;
+165        
+166        * first, we divide on col8, keep those that pass in our base dataset;
+167        %col8_num_only(ds_in=morn.porthold1980to1992, ds_out_clean=ms_work.porthold1980to1992,
+167      ! ds_out_dirty=ms_work.porthold1980to1992dirty);
+168        
+169        * next we check column9. Here, because we know col9 is ok, we expect the dirty data set
+169      ! to be empty;
+170        %col9_num_only(ds_in=ms_work.porthold1980to1992dirty,
+170      ! ds_out_clean=ms_work.porthold1980to1992clean,
+170      ! ds_out_dirty=ms_work.porthold1980to1992dirty2);
+171        
+172        
+173        *****************************************;
+174        ** Now, Append 1993 to 2001 because they do not have data issues;
+175        *****************************************;
+176        
+177        
+178        data ms_work.porthold2001_1980;
+179        	set morn.porthold2001;
+180        run;
+181        
+182        proc append base = ms_work.porthold2001_1980 data = ms_work.porthold1980to1992 force;
+183        proc append base = ms_work.porthold2001_1980 data = ms_work.porthold1980to1992clean force
+183      ! ;
+184        proc append base = ms_work.porthold2001_1980 data = morn.porthold1993 force;
+185        proc append base = ms_work.porthold2001_1980 data = morn.porthold1994 force;
+186        proc append base = ms_work.porthold2001_1980 data = morn.porthold1995 force;
+187        proc append base = ms_work.porthold2001_1980 data = morn.porthold1996 force;
+188        proc append base = ms_work.porthold2001_1980 data = morn.porthold1997 force;
+189        proc append base = ms_work.porthold2001_1980 data = morn.porthold1998 force;
+190        proc append base = ms_work.porthold2001_1980 data = morn.porthold1999 force;
+191        proc append base = ms_work.porthold2001_1980 data = morn.porthold2000 force;
+192        run;
+193        */
+194        proc contents data = ms_work.porthold2001_1980; run;
+
+NOTE: PROCEDURE CONTENTS used (Total process time):
+      real time           0.10 seconds
+      cpu time            0.04 seconds
+      
+NOTE: The PROCEDURE CONTENTS printed page 1.
+
+195        /*
+196        *****************************************;
+197        ** Now, 2009 because it has the longest description field;
+198        *****************************************;
+199        */
+200        %col8_num_only(ds_in=morn.porthold2009, ds_out_clean=ms_work.porthold2009,
+200      ! ds_out_dirty=morn.porthold2009dirty, lastcol = col20);
+MPRINT(COL8_NUM_ONLY):   data clean1 dirty1;
+SYMBOLGEN:  Macro variable DS_IN resolves to morn.porthold2009
+MPRINT(COL8_NUM_ONLY):   set morn.porthold2009;
+NOTE: Data file MORN.PORTHOLD2009.DATA is in a format that is native to another host, or the file 
+      encoding does not match the session encoding. Cross Environment Data Access will be used, 
+      which might require additional CPU resources and might reduce performance.
+MPRINT(COL8_NUM_ONLY):   if
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+MPRINT(FILTER_COL_CLEAN):   ((anyalpha(col8) + indexc(col8,"/","%")) = 0) and not missing(col8) and 
+(trim(col8) ne "")
+MPRINT(COL8_NUM_ONLY):   then output clean1;
+MPRINT(COL8_NUM_ONLY):   if
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+MPRINT(FILTER_COL_DIRTY):   ((anyalpha(col8) + indexc(col8,"/","%")) ne 0) or missing(col8) or 
+(trim(col8) = "")
+MPRINT(COL8_NUM_ONLY):   then output dirty1;
+MPRINT(COL8_NUM_ONLY):   run;
+
+NOTE: There were 12308763 observations read from the data set MORN.PORTHOLD2009.
+NOTE: The data set WORK.CLEAN1 has 12301489 observations and 20 variables.
+NOTE: The data set WORK.DIRTY1 has 7274 observations and 20 variables.
+NOTE: DATA statement used (Total process time):
+      real time           4:10.85
+      cpu time            37.06 seconds
+      
+
+MPRINT(COL8_NUM_ONLY):   data clean2;
+MPRINT(COL8_NUM_ONLY):   set clean1;
+MPRINT(COL8_NUM_ONLY):   *these work for the fixed data;
+MPRINT(COL8_NUM_ONLY):   colnum8 = Col8*1;
+MPRINT(COL8_NUM_ONLY):   colnum9 = Col9*1;
+MPRINT(COL8_NUM_ONLY):   colnum10 = Col10*1;
+MPRINT(COL8_NUM_ONLY):   colnum11 = Col11*1;
+MPRINT(COL8_NUM_ONLY):   colnum13 = Col13*1;
+MPRINT(COL8_NUM_ONLY):   colnum14 = Col14*1;
+MPRINT(COL8_NUM_ONLY):   colnum15 = Col15*1;
+MPRINT(COL8_NUM_ONLY):   run;
+
+NOTE: Character values have been converted to numeric values at the places given by: 
+      (Line):(Column).
+      222:224   222:243   200:14    200:35    200:56    200:77    200:98    
+NOTE: Missing values were generated as a result of performing an operation on missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      1210 at 222:247      295585 at 200:40     7865839 at 200:61    5120927 at 200:82
+      5128316 at 200:103   
+NOTE: There were 12301489 observations read from the data set WORK.CLEAN1.
+NOTE: The data set WORK.CLEAN2 has 12301489 observations and 27 variables.
+NOTE: DATA statement used (Total process time):
+      real time           4:00.68
+      cpu time            17.34 seconds
+      
+
+SYMBOLGEN:  Macro variable DS_OUT_CLEAN resolves to ms_work.porthold2009
+MPRINT(COL8_NUM_ONLY):   data ms_work.porthold2009 (drop = colnum8-colnum11 colnum13-colnum15);
+SYMBOLGEN:  Macro variable LASTCOL resolves to col20
+MPRINT(COL8_NUM_ONLY):   set clean2 (drop = col8-col11 col13-col20);
+MPRINT(COL8_NUM_ONLY):   Col8 = colnum8;
+MPRINT(COL8_NUM_ONLY):   Col9 = colnum9;
+MPRINT(COL8_NUM_ONLY):   Col10 = colnum10;
+MPRINT(COL8_NUM_ONLY):   Col11 = colnum11;
+MPRINT(COL8_NUM_ONLY):   Col13 = colnum13;
+MPRINT(COL8_NUM_ONLY):   Col14 = colnum14;
+MPRINT(COL8_NUM_ONLY):   Col15 = colnum15;
+MPRINT(COL8_NUM_ONLY):   run;
+
+NOTE: There were 12301489 observations read from the data set WORK.CLEAN2.
+NOTE: The data set MS_WORK.PORTHOLD2009 has 12301489 observations and 15 variables.
+NOTE: DATA statement used (Total process time):
+      real time           4:12.13
+      cpu time            7.40 seconds
+      
+
+SYMBOLGEN:  Macro variable DS_OUT_DIRTY resolves to morn.porthold2009dirty
+MPRINT(COL8_NUM_ONLY):   data morn.porthold2009dirty;
+MPRINT(COL8_NUM_ONLY):   set dirty1;
+MPRINT(COL8_NUM_ONLY):   run;
+
+NOTE: There were 7274 observations read from the data set WORK.DIRTY1.
+NOTE: The data set MORN.PORTHOLD2009DIRTY has 7274 observations and 20 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.78 seconds
+      cpu time            0.01 seconds
+      
+
+MPRINT(COL8_NUM_ONLY):   run;
+201        
+202        * We are going to bail on doing this in SAS. Dump it out to Excel and clean manually;
+203        
+204        %col8_num_only(ds_in=morn.porthold2009, ds_out_clean=ms_work.porthold2009,
+204      ! ds_out_dirty=morn.porthold2009dirty, lastcol = col20);
+MPRINT(COL8_NUM_ONLY):   data clean1 dirty1;
+SYMBOLGEN:  Macro variable DS_IN resolves to morn.porthold2009
+MPRINT(COL8_NUM_ONLY):   set morn.porthold2009;
+NOTE: Data file MORN.PORTHOLD2009.DATA is in a format that is native to another host, or the file 
+      encoding does not match the session encoding. Cross Environment Data Access will be used, 
+      which might require additional CPU resources and might reduce performance.
+MPRINT(COL8_NUM_ONLY):   if
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+MPRINT(FILTER_COL_CLEAN):   ((anyalpha(col8) + indexc(col8,"/","%")) = 0) and not missing(col8) and 
+(trim(col8) ne "")
+MPRINT(COL8_NUM_ONLY):   then output clean1;
+MPRINT(COL8_NUM_ONLY):   if
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+MPRINT(FILTER_COL_DIRTY):   ((anyalpha(col8) + indexc(col8,"/","%")) ne 0) or missing(col8) or 
+(trim(col8) = "")
+MPRINT(COL8_NUM_ONLY):   then output dirty1;
+MPRINT(COL8_NUM_ONLY):   run;
+
+NOTE: There were 12308763 observations read from the data set MORN.PORTHOLD2009.
+NOTE: The data set WORK.CLEAN1 has 12301489 observations and 20 variables.
+NOTE: The data set WORK.DIRTY1 has 7274 observations and 20 variables.
+NOTE: DATA statement used (Total process time):
+      real time           4:16.62
+      cpu time            36.31 seconds
+      
+
+MPRINT(COL8_NUM_ONLY):   data clean2;
+MPRINT(COL8_NUM_ONLY):   set clean1;
+MPRINT(COL8_NUM_ONLY):   *these work for the fixed data;
+MPRINT(COL8_NUM_ONLY):   colnum8 = Col8*1;
+MPRINT(COL8_NUM_ONLY):   colnum9 = Col9*1;
+MPRINT(COL8_NUM_ONLY):   colnum10 = Col10*1;
+MPRINT(COL8_NUM_ONLY):   colnum11 = Col11*1;
+MPRINT(COL8_NUM_ONLY):   colnum13 = Col13*1;
+MPRINT(COL8_NUM_ONLY):   colnum14 = Col14*1;
+MPRINT(COL8_NUM_ONLY):   colnum15 = Col15*1;
+MPRINT(COL8_NUM_ONLY):   run;
+
+NOTE: Character values have been converted to numeric values at the places given by: 
+      (Line):(Column).
+      249:224   249:243   204:14    204:35    204:56    204:77    204:98    
+NOTE: Missing values were generated as a result of performing an operation on missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      1210 at 249:247      295585 at 204:40     7865839 at 204:61    5120927 at 204:82
+      5128316 at 204:103   
+NOTE: There were 12301489 observations read from the data set WORK.CLEAN1.
+NOTE: The data set WORK.CLEAN2 has 12301489 observations and 27 variables.
+NOTE: DATA statement used (Total process time):
+      real time           3:30.66
+      cpu time            17.38 seconds
+      
+
+SYMBOLGEN:  Macro variable DS_OUT_CLEAN resolves to ms_work.porthold2009
+MPRINT(COL8_NUM_ONLY):   data ms_work.porthold2009 (drop = colnum8-colnum11 colnum13-colnum15);
+SYMBOLGEN:  Macro variable LASTCOL resolves to col20
+MPRINT(COL8_NUM_ONLY):   set clean2 (drop = col8-col11 col13-col20);
+MPRINT(COL8_NUM_ONLY):   Col8 = colnum8;
+MPRINT(COL8_NUM_ONLY):   Col9 = colnum9;
+MPRINT(COL8_NUM_ONLY):   Col10 = colnum10;
+MPRINT(COL8_NUM_ONLY):   Col11 = colnum11;
+MPRINT(COL8_NUM_ONLY):   Col13 = colnum13;
+MPRINT(COL8_NUM_ONLY):   Col14 = colnum14;
+MPRINT(COL8_NUM_ONLY):   Col15 = colnum15;
+MPRINT(COL8_NUM_ONLY):   run;
+
+NOTE: There were 12301489 observations read from the data set WORK.CLEAN2.
+NOTE: The data set MS_WORK.PORTHOLD2009 has 12301489 observations and 15 variables.
+NOTE: DATA statement used (Total process time):
+      real time           3:56.31
+      cpu time            7.38 seconds
+      
+
+SYMBOLGEN:  Macro variable DS_OUT_DIRTY resolves to morn.porthold2009dirty
+MPRINT(COL8_NUM_ONLY):   data morn.porthold2009dirty;
+MPRINT(COL8_NUM_ONLY):   set dirty1;
+MPRINT(COL8_NUM_ONLY):   run;
+
+NOTE: There were 7274 observations read from the data set WORK.DIRTY1.
+NOTE: The data set MORN.PORTHOLD2009DIRTY has 7274 observations and 20 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.23 seconds
+      cpu time            0.01 seconds
+      
+
+MPRINT(COL8_NUM_ONLY):   run;
+205        %col8_num_only(ds_in=morn.porthold2008, ds_out_clean=ms_work.porthold2008,
+205      ! ds_out_dirty=morn.porthold2008dirty, lastcol = col21);
+MPRINT(COL8_NUM_ONLY):   data clean1 dirty1;
+SYMBOLGEN:  Macro variable DS_IN resolves to morn.porthold2008
+MPRINT(COL8_NUM_ONLY):   set morn.porthold2008;
+NOTE: Data file MORN.PORTHOLD2008.DATA is in a format that is native to another host, or the file 
+      encoding does not match the session encoding. Cross Environment Data Access will be used, 
+      which might require additional CPU resources and might reduce performance.
+MPRINT(COL8_NUM_ONLY):   if
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+MPRINT(FILTER_COL_CLEAN):   ((anyalpha(col8) + indexc(col8,"/","%")) = 0) and not missing(col8) and 
+(trim(col8) ne "")
+MPRINT(COL8_NUM_ONLY):   then output clean1;
+MPRINT(COL8_NUM_ONLY):   if
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+MPRINT(FILTER_COL_DIRTY):   ((anyalpha(col8) + indexc(col8,"/","%")) ne 0) or missing(col8) or 
+(trim(col8) = "")
+MPRINT(COL8_NUM_ONLY):   then output dirty1;
+MPRINT(COL8_NUM_ONLY):   run;
+
+NOTE: There were 11935378 observations read from the data set MORN.PORTHOLD2008.
+NOTE: The data set WORK.CLEAN1 has 11929147 observations and 21 variables.
+NOTE: The data set WORK.DIRTY1 has 6231 observations and 21 variables.
+NOTE: DATA statement used (Total process time):
+      real time           3:53.90
+      cpu time            34.94 seconds
+      
+
+MPRINT(COL8_NUM_ONLY):   data clean2;
+MPRINT(COL8_NUM_ONLY):   set clean1;
+MPRINT(COL8_NUM_ONLY):   *these work for the fixed data;
+MPRINT(COL8_NUM_ONLY):   colnum8 = Col8*1;
+MPRINT(COL8_NUM_ONLY):   colnum9 = Col9*1;
+MPRINT(COL8_NUM_ONLY):   colnum10 = Col10*1;
+MPRINT(COL8_NUM_ONLY):   colnum11 = Col11*1;
+MPRINT(COL8_NUM_ONLY):   colnum13 = Col13*1;
+MPRINT(COL8_NUM_ONLY):   colnum14 = Col14*1;
+MPRINT(COL8_NUM_ONLY):   colnum15 = Col15*1;
+MPRINT(COL8_NUM_ONLY):   run;
+
+NOTE: Character values have been converted to numeric values at the places given by: 
+      (Line):(Column).
+      273:223   273:242   205:14    205:35    205:56    205:77    205:98    
+NOTE: Missing values were generated as a result of performing an operation on missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      158 at 273:246       9522 at 205:40       7388330 at 205:61    4931149 at 205:82
+      4956082 at 205:103   
+NOTE: There were 11929147 observations read from the data set WORK.CLEAN1.
+NOTE: The data set WORK.CLEAN2 has 11929147 observations and 28 variables.
+NOTE: DATA statement used (Total process time):
+      real time           3:57.36
+      cpu time            16.80 seconds
+      
+
+SYMBOLGEN:  Macro variable DS_OUT_CLEAN resolves to ms_work.porthold2008
+MPRINT(COL8_NUM_ONLY):   data ms_work.porthold2008 (drop = colnum8-colnum11 colnum13-colnum15);
+SYMBOLGEN:  Macro variable LASTCOL resolves to col21
+MPRINT(COL8_NUM_ONLY):   set clean2 (drop = col8-col11 col13-col21);
+MPRINT(COL8_NUM_ONLY):   Col8 = colnum8;
+MPRINT(COL8_NUM_ONLY):   Col9 = colnum9;
+MPRINT(COL8_NUM_ONLY):   Col10 = colnum10;
+MPRINT(COL8_NUM_ONLY):   Col11 = colnum11;
+MPRINT(COL8_NUM_ONLY):   Col13 = colnum13;
+MPRINT(COL8_NUM_ONLY):   Col14 = colnum14;
+MPRINT(COL8_NUM_ONLY):   Col15 = colnum15;
+MPRINT(COL8_NUM_ONLY):   run;
+
+NOTE: There were 11929147 observations read from the data set WORK.CLEAN2.
+NOTE: The data set MS_WORK.PORTHOLD2008 has 11929147 observations and 15 variables.
+NOTE: DATA statement used (Total process time):
+      real time           4:03.30
+      cpu time            8.87 seconds
+      
+
+SYMBOLGEN:  Macro variable DS_OUT_DIRTY resolves to morn.porthold2008dirty
+MPRINT(COL8_NUM_ONLY):   data morn.porthold2008dirty;
+MPRINT(COL8_NUM_ONLY):   set dirty1;
+MPRINT(COL8_NUM_ONLY):   run;
+
+NOTE: There were 6231 observations read from the data set WORK.DIRTY1.
+NOTE: The data set MORN.PORTHOLD2008DIRTY has 6231 observations and 21 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.27 seconds
+      cpu time            0.01 seconds
+      
+
+MPRINT(COL8_NUM_ONLY):   run;
+206        %col8_num_only(ds_in=morn.porthold2007, ds_out_clean=ms_work.porthold2007,
+206      ! ds_out_dirty=morn.porthold2007dirty, lastcol = col21);
+MPRINT(COL8_NUM_ONLY):   data clean1 dirty1;
+SYMBOLGEN:  Macro variable DS_IN resolves to morn.porthold2007
+MPRINT(COL8_NUM_ONLY):   set morn.porthold2007;
+NOTE: Data file MORN.PORTHOLD2007.DATA is in a format that is native to another host, or the file 
+      encoding does not match the session encoding. Cross Environment Data Access will be used, 
+      which might require additional CPU resources and might reduce performance.
+MPRINT(COL8_NUM_ONLY):   if
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+MPRINT(FILTER_COL_CLEAN):   ((anyalpha(col8) + indexc(col8,"/","%")) = 0) and not missing(col8) and 
+(trim(col8) ne "")
+MPRINT(COL8_NUM_ONLY):   then output clean1;
+MPRINT(COL8_NUM_ONLY):   if
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+MPRINT(FILTER_COL_DIRTY):   ((anyalpha(col8) + indexc(col8,"/","%")) ne 0) or missing(col8) or 
+(trim(col8) = "")
+MPRINT(COL8_NUM_ONLY):   then output dirty1;
+MPRINT(COL8_NUM_ONLY):   run;
+
+NOTE: There were 10200054 observations read from the data set MORN.PORTHOLD2007.
+NOTE: The data set WORK.CLEAN1 has 10197454 observations and 21 variables.
+NOTE: The data set WORK.DIRTY1 has 2600 observations and 21 variables.
+NOTE: DATA statement used (Total process time):
+      real time           3:32.53
+      cpu time            31.18 seconds
+      
+
+MPRINT(COL8_NUM_ONLY):   data clean2;
+MPRINT(COL8_NUM_ONLY):   set clean1;
+MPRINT(COL8_NUM_ONLY):   *these work for the fixed data;
+MPRINT(COL8_NUM_ONLY):   colnum8 = Col8*1;
+MPRINT(COL8_NUM_ONLY):   colnum9 = Col9*1;
+MPRINT(COL8_NUM_ONLY):   colnum10 = Col10*1;
+MPRINT(COL8_NUM_ONLY):   colnum11 = Col11*1;
+MPRINT(COL8_NUM_ONLY):   colnum13 = Col13*1;
+MPRINT(COL8_NUM_ONLY):   colnum14 = Col14*1;
+MPRINT(COL8_NUM_ONLY):   colnum15 = Col15*1;
+MPRINT(COL8_NUM_ONLY):   run;
+
+NOTE: Character values have been converted to numeric values at the places given by: 
+      (Line):(Column).
+      297:223   297:242   206:14    206:35    206:56    206:77    206:98    
+NOTE: Missing values were generated as a result of performing an operation on missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      148 at 297:246       1754 at 206:40       5972886 at 206:61    4475708 at 206:82
+      4475734 at 206:103   
+NOTE: There were 10197454 observations read from the data set WORK.CLEAN1.
+NOTE: The data set WORK.CLEAN2 has 10197454 observations and 28 variables.
+NOTE: DATA statement used (Total process time):
+      real time           5:09.70
+      cpu time            15.09 seconds
+      
+
+SYMBOLGEN:  Macro variable DS_OUT_CLEAN resolves to ms_work.porthold2007
+MPRINT(COL8_NUM_ONLY):   data ms_work.porthold2007 (drop = colnum8-colnum11 colnum13-colnum15);
+SYMBOLGEN:  Macro variable LASTCOL resolves to col21
+MPRINT(COL8_NUM_ONLY):   set clean2 (drop = col8-col11 col13-col21);
+MPRINT(COL8_NUM_ONLY):   Col8 = colnum8;
+MPRINT(COL8_NUM_ONLY):   Col9 = colnum9;
+MPRINT(COL8_NUM_ONLY):   Col10 = colnum10;
+MPRINT(COL8_NUM_ONLY):   Col11 = colnum11;
+MPRINT(COL8_NUM_ONLY):   Col13 = colnum13;
+MPRINT(COL8_NUM_ONLY):   Col14 = colnum14;
+MPRINT(COL8_NUM_ONLY):   Col15 = colnum15;
+MPRINT(COL8_NUM_ONLY):   run;
+
+NOTE: There were 10197454 observations read from the data set WORK.CLEAN2.
+NOTE: The data set MS_WORK.PORTHOLD2007 has 10197454 observations and 15 variables.
+NOTE: DATA statement used (Total process time):
+      real time           6:13.77
+      cpu time            7.18 seconds
+      
+
+SYMBOLGEN:  Macro variable DS_OUT_DIRTY resolves to morn.porthold2007dirty
+MPRINT(COL8_NUM_ONLY):   data morn.porthold2007dirty;
+MPRINT(COL8_NUM_ONLY):   set dirty1;
+MPRINT(COL8_NUM_ONLY):   run;
+
+NOTE: There were 2600 observations read from the data set WORK.DIRTY1.
+NOTE: The data set MORN.PORTHOLD2007DIRTY has 2600 observations and 21 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.51 seconds
+      cpu time            0.00 seconds
+      
+
+MPRINT(COL8_NUM_ONLY):   run;
+207        %col8_num_only(ds_in=morn.porthold2006, ds_out_clean=ms_work.porthold2006,
+207      ! ds_out_dirty=morn.porthold2006dirty, lastcol = col17);
+MPRINT(COL8_NUM_ONLY):   data clean1 dirty1;
+SYMBOLGEN:  Macro variable DS_IN resolves to morn.porthold2006
+MPRINT(COL8_NUM_ONLY):   set morn.porthold2006;
+NOTE: Data file MORN.PORTHOLD2006.DATA is in a format that is native to another host, or the file 
+      encoding does not match the session encoding. Cross Environment Data Access will be used, 
+      which might require additional CPU resources and might reduce performance.
+MPRINT(COL8_NUM_ONLY):   if
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+MPRINT(FILTER_COL_CLEAN):   ((anyalpha(col8) + indexc(col8,"/","%")) = 0) and not missing(col8) and 
+(trim(col8) ne "")
+MPRINT(COL8_NUM_ONLY):   then output clean1;
+MPRINT(COL8_NUM_ONLY):   if
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+MPRINT(FILTER_COL_DIRTY):   ((anyalpha(col8) + indexc(col8,"/","%")) ne 0) or missing(col8) or 
+(trim(col8) = "")
+MPRINT(COL8_NUM_ONLY):   then output dirty1;
+MPRINT(COL8_NUM_ONLY):   run;
+
+NOTE: There were 8415838 observations read from the data set MORN.PORTHOLD2006.
+NOTE: The data set WORK.CLEAN1 has 8414807 observations and 17 variables.
+NOTE: The data set WORK.DIRTY1 has 1031 observations and 17 variables.
+NOTE: DATA statement used (Total process time):
+      real time           3:52.15
+      cpu time            21.73 seconds
+      
+
+MPRINT(COL8_NUM_ONLY):   data clean2;
+MPRINT(COL8_NUM_ONLY):   set clean1;
+MPRINT(COL8_NUM_ONLY):   *these work for the fixed data;
+MPRINT(COL8_NUM_ONLY):   colnum8 = Col8*1;
+MPRINT(COL8_NUM_ONLY):   colnum9 = Col9*1;
+MPRINT(COL8_NUM_ONLY):   colnum10 = Col10*1;
+MPRINT(COL8_NUM_ONLY):   colnum11 = Col11*1;
+MPRINT(COL8_NUM_ONLY):   colnum13 = Col13*1;
+MPRINT(COL8_NUM_ONLY):   colnum14 = Col14*1;
+MPRINT(COL8_NUM_ONLY):   colnum15 = Col15*1;
+MPRINT(COL8_NUM_ONLY):   run;
+
+NOTE: Character values have been converted to numeric values at the places given by: 
+      (Line):(Column).
+      321:223   321:242   207:14    207:56    207:98    
+NOTE: Missing values were generated as a result of performing an operation on missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      98 at 321:246        22646 at 207:40      4922751 at 207:61    3646086 at 207:82
+      3646096 at 207:103   
+NOTE: There were 8414807 observations read from the data set WORK.CLEAN1.
+NOTE: The data set WORK.CLEAN2 has 8414807 observations and 24 variables.
+NOTE: DATA statement used (Total process time):
+      real time           3:15.00
+      cpu time            8.83 seconds
+      
+
+SYMBOLGEN:  Macro variable DS_OUT_CLEAN resolves to ms_work.porthold2006
+MPRINT(COL8_NUM_ONLY):   data ms_work.porthold2006 (drop = colnum8-colnum11 colnum13-colnum15);
+SYMBOLGEN:  Macro variable LASTCOL resolves to col17
+MPRINT(COL8_NUM_ONLY):   set clean2 (drop = col8-col11 col13-col17);
+MPRINT(COL8_NUM_ONLY):   Col8 = colnum8;
+MPRINT(COL8_NUM_ONLY):   Col9 = colnum9;
+MPRINT(COL8_NUM_ONLY):   Col10 = colnum10;
+MPRINT(COL8_NUM_ONLY):   Col11 = colnum11;
+MPRINT(COL8_NUM_ONLY):   Col13 = colnum13;
+MPRINT(COL8_NUM_ONLY):   Col14 = colnum14;
+MPRINT(COL8_NUM_ONLY):   Col15 = colnum15;
+MPRINT(COL8_NUM_ONLY):   run;
+
+NOTE: There were 8414807 observations read from the data set WORK.CLEAN2.
+NOTE: The data set MS_WORK.PORTHOLD2006 has 8414807 observations and 15 variables.
+NOTE: DATA statement used (Total process time):
+      real time           2:37.74
+      cpu time            5.28 seconds
+      
+
+SYMBOLGEN:  Macro variable DS_OUT_DIRTY resolves to morn.porthold2006dirty
+MPRINT(COL8_NUM_ONLY):   data morn.porthold2006dirty;
+MPRINT(COL8_NUM_ONLY):   set dirty1;
+MPRINT(COL8_NUM_ONLY):   run;
+
+NOTE: There were 1031 observations read from the data set WORK.DIRTY1.
+NOTE: The data set MORN.PORTHOLD2006DIRTY has 1031 observations and 17 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.14 seconds
+      cpu time            0.01 seconds
+      
+
+MPRINT(COL8_NUM_ONLY):   run;
+208        %col8_num_only(ds_in=morn.porthold2005, ds_out_clean=ms_work.porthold2005,
+208      ! ds_out_dirty=morn.porthold2005dirty, lastcol = col16);
+MPRINT(COL8_NUM_ONLY):   data clean1 dirty1;
+SYMBOLGEN:  Macro variable DS_IN resolves to morn.porthold2005
+MPRINT(COL8_NUM_ONLY):   set morn.porthold2005;
+NOTE: Data file MORN.PORTHOLD2005.DATA is in a format that is native to another host, or the file 
+      encoding does not match the session encoding. Cross Environment Data Access will be used, 
+      which might require additional CPU resources and might reduce performance.
+MPRINT(COL8_NUM_ONLY):   if
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+MPRINT(FILTER_COL_CLEAN):   ((anyalpha(col8) + indexc(col8,"/","%")) = 0) and not missing(col8) and 
+(trim(col8) ne "")
+MPRINT(COL8_NUM_ONLY):   then output clean1;
+MPRINT(COL8_NUM_ONLY):   if
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+MPRINT(FILTER_COL_DIRTY):   ((anyalpha(col8) + indexc(col8,"/","%")) ne 0) or missing(col8) or 
+(trim(col8) = "")
+MPRINT(COL8_NUM_ONLY):   then output dirty1;
+MPRINT(COL8_NUM_ONLY):   run;
+
+NOTE: There were 7761390 observations read from the data set MORN.PORTHOLD2005.
+NOTE: The data set WORK.CLEAN1 has 7761305 observations and 16 variables.
+NOTE: The data set WORK.DIRTY1 has 85 observations and 16 variables.
+NOTE: DATA statement used (Total process time):
+      real time           1:45.87
+      cpu time            18.28 seconds
+      
+
+MPRINT(COL8_NUM_ONLY):   data clean2;
+MPRINT(COL8_NUM_ONLY):   set clean1;
+MPRINT(COL8_NUM_ONLY):   *these work for the fixed data;
+MPRINT(COL8_NUM_ONLY):   colnum8 = Col8*1;
+MPRINT(COL8_NUM_ONLY):   colnum9 = Col9*1;
+MPRINT(COL8_NUM_ONLY):   colnum10 = Col10*1;
+MPRINT(COL8_NUM_ONLY):   colnum11 = Col11*1;
+MPRINT(COL8_NUM_ONLY):   colnum13 = Col13*1;
+MPRINT(COL8_NUM_ONLY):   colnum14 = Col14*1;
+MPRINT(COL8_NUM_ONLY):   colnum15 = Col15*1;
+MPRINT(COL8_NUM_ONLY):   run;
+
+NOTE: Character values have been converted to numeric values at the places given by: 
+      (Line):(Column).
+      345:223   345:242   208:56    208:77    
+NOTE: Invalid numeric data, Col13='2027-05-01' , at line 208 column 56.
+Col1=FSUSA000AH Col2=2005-05-31 Col3=  Col4=  Col5=0 Col6=  Col7=General Obligation Bonds Col8=2005
+Col9=4000000 Col10=4000000 Col11=4217360 Col12=2.98317 Col13=2027-05-01 Col14=5 Col15=. Col16=.
+colnum8=2005 colnum9=4000000 colnum10=4000000 colnum11=4217360 colnum13=. colnum14=5 colnum15=.
+_ERROR_=1 _N_=326536
+NOTE: Missing values were generated as a result of performing an operation on missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      20896 at 208:40      4510880 at 208:61    3383760 at 208:82    3383852 at 208:103
+NOTE: There were 7761305 observations read from the data set WORK.CLEAN1.
+NOTE: The data set WORK.CLEAN2 has 7761305 observations and 23 variables.
+NOTE: DATA statement used (Total process time):
+      real time           2:38.83
+      cpu time            7.02 seconds
+      
+
+SYMBOLGEN:  Macro variable DS_OUT_CLEAN resolves to ms_work.porthold2005
+MPRINT(COL8_NUM_ONLY):   data ms_work.porthold2005 (drop = colnum8-colnum11 colnum13-colnum15);
+SYMBOLGEN:  Macro variable LASTCOL resolves to col16
+MPRINT(COL8_NUM_ONLY):   set clean2 (drop = col8-col11 col13-col16);
+MPRINT(COL8_NUM_ONLY):   Col8 = colnum8;
+MPRINT(COL8_NUM_ONLY):   Col9 = colnum9;
+MPRINT(COL8_NUM_ONLY):   Col10 = colnum10;
+MPRINT(COL8_NUM_ONLY):   Col11 = colnum11;
+MPRINT(COL8_NUM_ONLY):   Col13 = colnum13;
+MPRINT(COL8_NUM_ONLY):   Col14 = colnum14;
+MPRINT(COL8_NUM_ONLY):   Col15 = colnum15;
+MPRINT(COL8_NUM_ONLY):   run;
+
+NOTE: There were 7761305 observations read from the data set WORK.CLEAN2.
+NOTE: The data set MS_WORK.PORTHOLD2005 has 7761305 observations and 15 variables.
+NOTE: DATA statement used (Total process time):
+      real time           3:11.43
+      cpu time            4.60 seconds
+      
+
+SYMBOLGEN:  Macro variable DS_OUT_DIRTY resolves to morn.porthold2005dirty
+MPRINT(COL8_NUM_ONLY):   data morn.porthold2005dirty;
+MPRINT(COL8_NUM_ONLY):   set dirty1;
+MPRINT(COL8_NUM_ONLY):   run;
+
+NOTE: There were 85 observations read from the data set WORK.DIRTY1.
+NOTE: The data set MORN.PORTHOLD2005DIRTY has 85 observations and 16 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.18 seconds
+      cpu time            0.00 seconds
+      
+
+MPRINT(COL8_NUM_ONLY):   run;
+209        %col8_num_only(ds_in=morn.porthold2004, ds_out_clean=ms_work.porthold2004,
+209      ! ds_out_dirty=morn.porthold2004dirty, lastcol = col16);
+MPRINT(COL8_NUM_ONLY):   data clean1 dirty1;
+SYMBOLGEN:  Macro variable DS_IN resolves to morn.porthold2004
+MPRINT(COL8_NUM_ONLY):   set morn.porthold2004;
+NOTE: Data file MORN.PORTHOLD2004.DATA is in a format that is native to another host, or the file 
+      encoding does not match the session encoding. Cross Environment Data Access will be used, 
+      which might require additional CPU resources and might reduce performance.
+MPRINT(COL8_NUM_ONLY):   if
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+MPRINT(FILTER_COL_CLEAN):   ((anyalpha(col8) + indexc(col8,"/","%")) = 0) and not missing(col8) and 
+(trim(col8) ne "")
+MPRINT(COL8_NUM_ONLY):   then output clean1;
+MPRINT(COL8_NUM_ONLY):   if
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+MPRINT(FILTER_COL_DIRTY):   ((anyalpha(col8) + indexc(col8,"/","%")) ne 0) or missing(col8) or 
+(trim(col8) = "")
+MPRINT(COL8_NUM_ONLY):   then output dirty1;
+MPRINT(COL8_NUM_ONLY):   run;
+
+NOTE: There were 7776679 observations read from the data set MORN.PORTHOLD2004.
+NOTE: The data set WORK.CLEAN1 has 7776550 observations and 16 variables.
+NOTE: The data set WORK.DIRTY1 has 129 observations and 16 variables.
+NOTE: DATA statement used (Total process time):
+      real time           3:11.91
+      cpu time            19.11 seconds
+      
+
+MPRINT(COL8_NUM_ONLY):   data clean2;
+MPRINT(COL8_NUM_ONLY):   set clean1;
+MPRINT(COL8_NUM_ONLY):   *these work for the fixed data;
+MPRINT(COL8_NUM_ONLY):   colnum8 = Col8*1;
+MPRINT(COL8_NUM_ONLY):   colnum9 = Col9*1;
+MPRINT(COL8_NUM_ONLY):   colnum10 = Col10*1;
+MPRINT(COL8_NUM_ONLY):   colnum11 = Col11*1;
+MPRINT(COL8_NUM_ONLY):   colnum13 = Col13*1;
+MPRINT(COL8_NUM_ONLY):   colnum14 = Col14*1;
+MPRINT(COL8_NUM_ONLY):   colnum15 = Col15*1;
+MPRINT(COL8_NUM_ONLY):   run;
+
+NOTE: Character values have been converted to numeric values at the places given by: 
+      (Line):(Column).
+      369:223   369:242   209:56    209:77    
+NOTE: Invalid numeric data, Col13='2014-08-01' , at line 209 column 56.
+Col1=FSUSA000AH Col2=2004-11-30 Col3=  Col4=  Col5=0 Col6=  Col7=General Obligation Refunding Bonds
+Col8=1997 Col9=1485000 Col10=1485000 Col11=1713304 Col12=1.17621 Col13=2014-08-01 Col14=5.63 Col15=.
+Col16=. colnum8=1997 colnum9=1485000 colnum10=1485000 colnum11=1713304 colnum13=. colnum14=5.63
+colnum15=. _ERROR_=1 _N_=364776
+NOTE: Missing values were generated as a result of performing an operation on missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      15016 at 209:40      4417867 at 209:61    3406001 at 209:82    3406100 at 209:103
+NOTE: There were 7776550 observations read from the data set WORK.CLEAN1.
+NOTE: The data set WORK.CLEAN2 has 7776550 observations and 23 variables.
+NOTE: DATA statement used (Total process time):
+      real time           3:35.06
+      cpu time            7.47 seconds
+      
+
+SYMBOLGEN:  Macro variable DS_OUT_CLEAN resolves to ms_work.porthold2004
+MPRINT(COL8_NUM_ONLY):   data ms_work.porthold2004 (drop = colnum8-colnum11 colnum13-colnum15);
+SYMBOLGEN:  Macro variable LASTCOL resolves to col16
+MPRINT(COL8_NUM_ONLY):   set clean2 (drop = col8-col11 col13-col16);
+MPRINT(COL8_NUM_ONLY):   Col8 = colnum8;
+MPRINT(COL8_NUM_ONLY):   Col9 = colnum9;
+MPRINT(COL8_NUM_ONLY):   Col10 = colnum10;
+MPRINT(COL8_NUM_ONLY):   Col11 = colnum11;
+MPRINT(COL8_NUM_ONLY):   Col13 = colnum13;
+MPRINT(COL8_NUM_ONLY):   Col14 = colnum14;
+MPRINT(COL8_NUM_ONLY):   Col15 = colnum15;
+MPRINT(COL8_NUM_ONLY):   run;
+
+NOTE: There were 7776550 observations read from the data set WORK.CLEAN2.
+NOTE: The data set MS_WORK.PORTHOLD2004 has 7776550 observations and 15 variables.
+NOTE: DATA statement used (Total process time):
+      real time           4:20.86
+      cpu time            5.09 seconds
+      
+
+SYMBOLGEN:  Macro variable DS_OUT_DIRTY resolves to morn.porthold2004dirty
+MPRINT(COL8_NUM_ONLY):   data morn.porthold2004dirty;
+MPRINT(COL8_NUM_ONLY):   set dirty1;
+MPRINT(COL8_NUM_ONLY):   run;
+
+NOTE: There were 129 observations read from the data set WORK.DIRTY1.
+NOTE: The data set MORN.PORTHOLD2004DIRTY has 129 observations and 16 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.10 seconds
+      cpu time            0.00 seconds
+      
+
+MPRINT(COL8_NUM_ONLY):   run;
+210        %col8_num_only(ds_in=morn.porthold2003, ds_out_clean=ms_work.porthold2003,
+210      ! ds_out_dirty=morn.porthold2003dirty, lastcol = col15);
+MPRINT(COL8_NUM_ONLY):   data clean1 dirty1;
+SYMBOLGEN:  Macro variable DS_IN resolves to morn.porthold2003
+MPRINT(COL8_NUM_ONLY):   set morn.porthold2003;
+NOTE: Data file MORN.PORTHOLD2003.DATA is in a format that is native to another host, or the file 
+      encoding does not match the session encoding. Cross Environment Data Access will be used, 
+      which might require additional CPU resources and might reduce performance.
+MPRINT(COL8_NUM_ONLY):   if
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+MPRINT(FILTER_COL_CLEAN):   ((anyalpha(col8) + indexc(col8,"/","%")) = 0) and not missing(col8) and 
+(trim(col8) ne "")
+MPRINT(COL8_NUM_ONLY):   then output clean1;
+MPRINT(COL8_NUM_ONLY):   if
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+MPRINT(FILTER_COL_DIRTY):   ((anyalpha(col8) + indexc(col8,"/","%")) ne 0) or missing(col8) or 
+(trim(col8) = "")
+MPRINT(COL8_NUM_ONLY):   then output dirty1;
+MPRINT(COL8_NUM_ONLY):   run;
+
+NOTE: There were 7475649 observations read from the data set MORN.PORTHOLD2003.
+NOTE: The data set WORK.CLEAN1 has 7475607 observations and 15 variables.
+NOTE: The data set WORK.DIRTY1 has 42 observations and 15 variables.
+NOTE: DATA statement used (Total process time):
+      real time           2:32.03
+      cpu time            18.05 seconds
+      
+
+MPRINT(COL8_NUM_ONLY):   data clean2;
+MPRINT(COL8_NUM_ONLY):   set clean1;
+MPRINT(COL8_NUM_ONLY):   *these work for the fixed data;
+MPRINT(COL8_NUM_ONLY):   colnum8 = Col8*1;
+MPRINT(COL8_NUM_ONLY):   colnum9 = Col9*1;
+MPRINT(COL8_NUM_ONLY):   colnum10 = Col10*1;
+MPRINT(COL8_NUM_ONLY):   colnum11 = Col11*1;
+MPRINT(COL8_NUM_ONLY):   colnum13 = Col13*1;
+MPRINT(COL8_NUM_ONLY):   colnum14 = Col14*1;
+MPRINT(COL8_NUM_ONLY):   colnum15 = Col15*1;
+MPRINT(COL8_NUM_ONLY):   run;
+
+NOTE: Character values have been converted to numeric values at the places given by: 
+      (Line):(Column).
+      393:223   210:56    
+NOTE: Missing values were generated as a result of performing an operation on missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      2597 at 210:40       4244308 at 210:61    3376356 at 210:82    3370567 at 210:103
+NOTE: There were 7475607 observations read from the data set WORK.CLEAN1.
+NOTE: The data set WORK.CLEAN2 has 7475607 observations and 22 variables.
+NOTE: DATA statement used (Total process time):
+      real time           2:17.86
+      cpu time            6.37 seconds
+      
+
+SYMBOLGEN:  Macro variable DS_OUT_CLEAN resolves to ms_work.porthold2003
+MPRINT(COL8_NUM_ONLY):   data ms_work.porthold2003 (drop = colnum8-colnum11 colnum13-colnum15);
+SYMBOLGEN:  Macro variable LASTCOL resolves to col15
+MPRINT(COL8_NUM_ONLY):   set clean2 (drop = col8-col11 col13-col15);
+MPRINT(COL8_NUM_ONLY):   Col8 = colnum8;
+MPRINT(COL8_NUM_ONLY):   Col9 = colnum9;
+MPRINT(COL8_NUM_ONLY):   Col10 = colnum10;
+MPRINT(COL8_NUM_ONLY):   Col11 = colnum11;
+MPRINT(COL8_NUM_ONLY):   Col13 = colnum13;
+MPRINT(COL8_NUM_ONLY):   Col14 = colnum14;
+MPRINT(COL8_NUM_ONLY):   Col15 = colnum15;
+MPRINT(COL8_NUM_ONLY):   run;
+
+NOTE: There were 7475607 observations read from the data set WORK.CLEAN2.
+NOTE: The data set MS_WORK.PORTHOLD2003 has 7475607 observations and 15 variables.
+NOTE: DATA statement used (Total process time):
+      real time           2:11.55
+      cpu time            4.65 seconds
+      
+
+SYMBOLGEN:  Macro variable DS_OUT_DIRTY resolves to morn.porthold2003dirty
+MPRINT(COL8_NUM_ONLY):   data morn.porthold2003dirty;
+MPRINT(COL8_NUM_ONLY):   set dirty1;
+MPRINT(COL8_NUM_ONLY):   run;
+
+NOTE: There were 42 observations read from the data set WORK.DIRTY1.
+NOTE: The data set MORN.PORTHOLD2003DIRTY has 42 observations and 15 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.08 seconds
+      cpu time            0.00 seconds
+      
+
+MPRINT(COL8_NUM_ONLY):   run;
+211        %col8_num_only(ds_in=morn.porthold2002, ds_out_clean=ms_work.porthold2002,
+211      ! ds_out_dirty=morn.porthold2002dirty, lastcol = col16);
+MPRINT(COL8_NUM_ONLY):   data clean1 dirty1;
+SYMBOLGEN:  Macro variable DS_IN resolves to morn.porthold2002
+MPRINT(COL8_NUM_ONLY):   set morn.porthold2002;
+NOTE: Data file MORN.PORTHOLD2002.DATA is in a format that is native to another host, or the file 
+      encoding does not match the session encoding. Cross Environment Data Access will be used, 
+      which might require additional CPU resources and might reduce performance.
+MPRINT(COL8_NUM_ONLY):   if
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+MPRINT(FILTER_COL_CLEAN):   ((anyalpha(col8) + indexc(col8,"/","%")) = 0) and not missing(col8) and 
+(trim(col8) ne "")
+MPRINT(COL8_NUM_ONLY):   then output clean1;
+MPRINT(COL8_NUM_ONLY):   if
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+SYMBOLGEN:  Macro variable COL resolves to col8
+MPRINT(FILTER_COL_DIRTY):   ((anyalpha(col8) + indexc(col8,"/","%")) ne 0) or missing(col8) or 
+(trim(col8) = "")
+MPRINT(COL8_NUM_ONLY):   then output dirty1;
+MPRINT(COL8_NUM_ONLY):   run;
+
+NOTE: There were 6406960 observations read from the data set MORN.PORTHOLD2002.
+NOTE: The data set WORK.CLEAN1 has 6406751 observations and 16 variables.
+NOTE: The data set WORK.DIRTY1 has 209 observations and 16 variables.
+NOTE: DATA statement used (Total process time):
+      real time           1:39.59
+      cpu time            15.63 seconds
+      
+
+MPRINT(COL8_NUM_ONLY):   data clean2;
+MPRINT(COL8_NUM_ONLY):   set clean1;
+MPRINT(COL8_NUM_ONLY):   *these work for the fixed data;
+MPRINT(COL8_NUM_ONLY):   colnum8 = Col8*1;
+MPRINT(COL8_NUM_ONLY):   colnum9 = Col9*1;
+MPRINT(COL8_NUM_ONLY):   colnum10 = Col10*1;
+MPRINT(COL8_NUM_ONLY):   colnum11 = Col11*1;
+MPRINT(COL8_NUM_ONLY):   colnum13 = Col13*1;
+MPRINT(COL8_NUM_ONLY):   colnum14 = Col14*1;
+MPRINT(COL8_NUM_ONLY):   colnum15 = Col15*1;
+MPRINT(COL8_NUM_ONLY):   run;
+
+NOTE: Character values have been converted to numeric values at the places given by: 
+      (Line):(Column).
+      417:223   211:56    
+NOTE: Invalid numeric data, Col8='&' , at line 417 column 223.
+Col1=FSUSA001SR Col2=2002-06-30 Col3=  Col4=  Col5=E Col6=  Col7=Merrill Lynch Intl&nbsp Col8=&
+Col9=572000 Col10=572000 Col11=1075891 Col12=1.22895 Col13=  Col14=. Col15=. Col16=. colnum8=.
+colnum9=572000 colnum10=572000 colnum11=1075891 colnum13=. colnum14=. colnum15=. _ERROR_=1
+_N_=2140683
+NOTE: Missing values were generated as a result of performing an operation on missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      1 at 417:227         212 at 211:40        3871856 at 211:61    2920148 at 211:82
+      2918870 at 211:103   
+NOTE: There were 6406751 observations read from the data set WORK.CLEAN1.
+NOTE: The data set WORK.CLEAN2 has 6406751 observations and 23 variables.
+NOTE: DATA statement used (Total process time):
+      real time           1:40.61
+      cpu time            5.54 seconds
+      
+
+SYMBOLGEN:  Macro variable DS_OUT_CLEAN resolves to ms_work.porthold2002
+MPRINT(COL8_NUM_ONLY):   data ms_work.porthold2002 (drop = colnum8-colnum11 colnum13-colnum15);
+SYMBOLGEN:  Macro variable LASTCOL resolves to col16
+MPRINT(COL8_NUM_ONLY):   set clean2 (drop = col8-col11 col13-col16);
+MPRINT(COL8_NUM_ONLY):   Col8 = colnum8;
+MPRINT(COL8_NUM_ONLY):   Col9 = colnum9;
+MPRINT(COL8_NUM_ONLY):   Col10 = colnum10;
+MPRINT(COL8_NUM_ONLY):   Col11 = colnum11;
+MPRINT(COL8_NUM_ONLY):   Col13 = colnum13;
+MPRINT(COL8_NUM_ONLY):   Col14 = colnum14;
+MPRINT(COL8_NUM_ONLY):   Col15 = colnum15;
+MPRINT(COL8_NUM_ONLY):   run;
+
+NOTE: There were 6406751 observations read from the data set WORK.CLEAN2.
+NOTE: The data set MS_WORK.PORTHOLD2002 has 6406751 observations and 15 variables.
+NOTE: DATA statement used (Total process time):
+      real time           1:47.11
+      cpu time            4.15 seconds
+      
+
+SYMBOLGEN:  Macro variable DS_OUT_DIRTY resolves to morn.porthold2002dirty
+MPRINT(COL8_NUM_ONLY):   data morn.porthold2002dirty;
+MPRINT(COL8_NUM_ONLY):   set dirty1;
+MPRINT(COL8_NUM_ONLY):   run;
+
+NOTE: There were 209 observations read from the data set WORK.DIRTY1.
+NOTE: The data set MORN.PORTHOLD2002DIRTY has 209 observations and 16 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+MPRINT(COL8_NUM_ONLY):   run;
+212        
+213        data morn.porthold_main_clean;
+214        	set morn.porthold2009;
+NOTE: Data file MORN.PORTHOLD2009.DATA is in a format that is native to another host, or the file 
+      encoding does not match the session encoding. Cross Environment Data Access will be used, 
+      which might require additional CPU resources and might reduce performance.
+215        run;
+
+NOTE: There were 12308763 observations read from the data set MORN.PORTHOLD2009.
+NOTE: The data set MORN.PORTHOLD_MAIN_CLEAN has 12308763 observations and 20 variables.
+NOTE: DATA statement used (Total process time):
+      real time           4:38.64
+      cpu time            30.56 seconds
+      
+
+216        proc append base = morn.porthold_main_clean data = ms_work.porthold2001_1980 force;
+
+NOTE: Appending MS_WORK.PORTHOLD2001_1980 to MORN.PORTHOLD_MAIN_CLEAN.
+WARNING: Variable Col7 has different lengths on BASE and DATA files (BASE 79 DATA 75).
+WARNING: Variable Col8 not appended because of type mismatch.
+WARNING: Variable Col9 not appended because of type mismatch.
+WARNING: Variable Col10 not appended because of type mismatch.
+WARNING: Variable Col11 not appended because of type mismatch.
+WARNING: Variable Col12 has different lengths on BASE and DATA files (BASE 13 DATA 10).
+WARNING: Variable Col13 not appended because of type mismatch.
+WARNING: Variable Col14 not appended because of type mismatch.
+WARNING: Variable Col15 not appended because of type mismatch.
+WARNING: Variable Col16 was not found on DATA file.
+WARNING: Variable Col17 was not found on DATA file.
+WARNING: Variable Col18 was not found on DATA file.
+WARNING: Variable Col19 was not found on DATA file.
+WARNING: Variable Col20 was not found on DATA file.
+NOTE: FORCE is specified, so dropping/truncating will occur.
+NOTE: There were 20280802 observations read from the data set MS_WORK.PORTHOLD2001_1980.
+NOTE: 20280802 observations added.
+NOTE: The data set MORN.PORTHOLD_MAIN_CLEAN has 32589565 observations and 20 variables.
+NOTE: PROCEDURE APPEND used (Total process time):
+      real time           3:59.10
+      cpu time            11.55 seconds
+      
+
+217        proc append base = morn.porthold_main_clean data = ms_work.porthold2008 force;
+
+NOTE: Appending MS_WORK.PORTHOLD2008 to MORN.PORTHOLD_MAIN_CLEAN.
+WARNING: Variable Col7 has different lengths on BASE and DATA files (BASE 79 DATA 77).
+WARNING: Variable Col8 not appended because of type mismatch.
+WARNING: Variable Col9 not appended because of type mismatch.
+WARNING: Variable Col10 not appended because of type mismatch.
+WARNING: Variable Col11 not appended because of type mismatch.
+WARNING: Variable Col12 has different lengths on BASE and DATA files (BASE 13 DATA 16).
+WARNING: Variable Col13 not appended because of type mismatch.
+WARNING: Variable Col14 not appended because of type mismatch.
+WARNING: Variable Col15 not appended because of type mismatch.
+WARNING: Variable Col16 was not found on DATA file.
+WARNING: Variable Col17 was not found on DATA file.
+WARNING: Variable Col18 was not found on DATA file.
+WARNING: Variable Col19 was not found on DATA file.
+WARNING: Variable Col20 was not found on DATA file.
+NOTE: FORCE is specified, so dropping/truncating will occur.
+NOTE: There were 11929147 observations read from the data set MS_WORK.PORTHOLD2008.
+NOTE: 11929147 observations added.
+NOTE: The data set MORN.PORTHOLD_MAIN_CLEAN has 44518712 observations and 20 variables.
+NOTE: PROCEDURE APPEND used (Total process time):
+      real time           2:37.39
+      cpu time            6.90 seconds
+      
+
+218        proc append base = morn.porthold_main_clean data = ms_work.porthold2007 force;
+
+NOTE: Appending MS_WORK.PORTHOLD2007 to MORN.PORTHOLD_MAIN_CLEAN.
+WARNING: Variable Col7 has different lengths on BASE and DATA files (BASE 79 DATA 75).
+WARNING: Variable Col8 not appended because of type mismatch.
+WARNING: Variable Col9 not appended because of type mismatch.
+WARNING: Variable Col10 not appended because of type mismatch.
+WARNING: Variable Col11 not appended because of type mismatch.
+WARNING: Variable Col12 has different lengths on BASE and DATA files (BASE 13 DATA 16).
+WARNING: Variable Col13 not appended because of type mismatch.
+WARNING: Variable Col14 not appended because of type mismatch.
+WARNING: Variable Col15 not appended because of type mismatch.
+WARNING: Variable Col16 was not found on DATA file.
+WARNING: Variable Col17 was not found on DATA file.
+WARNING: Variable Col18 was not found on DATA file.
+WARNING: Variable Col19 was not found on DATA file.
+WARNING: Variable Col20 was not found on DATA file.
+NOTE: FORCE is specified, so dropping/truncating will occur.
+NOTE: There were 10197454 observations read from the data set MS_WORK.PORTHOLD2007.
+NOTE: 10197454 observations added.
+NOTE: The data set MORN.PORTHOLD_MAIN_CLEAN has 54716166 observations and 20 variables.
+NOTE: PROCEDURE APPEND used (Total process time):
+      real time           2:11.85
+      cpu time            5.80 seconds
+      
+
+219        proc append base = morn.porthold_main_clean data = ms_work.porthold2006 force;
+
+NOTE: Appending MS_WORK.PORTHOLD2006 to MORN.PORTHOLD_MAIN_CLEAN.
+WARNING: Variable Col7 has different lengths on BASE and DATA files (BASE 79 DATA 75).
+WARNING: Variable Col8 not appended because of type mismatch.
+WARNING: Variable Col9 not appended because of type mismatch.
+WARNING: Variable Col10 not appended because of type mismatch.
+WARNING: Variable Col11 not appended because of type mismatch.
+WARNING: Variable Col12 has different lengths on BASE and DATA files (BASE 13 DATA 10).
+WARNING: Variable Col13 not appended because of type mismatch.
+WARNING: Variable Col14 not appended because of type mismatch.
+WARNING: Variable Col15 not appended because of type mismatch.
+WARNING: Variable Col16 was not found on DATA file.
+WARNING: Variable Col17 was not found on DATA file.
+WARNING: Variable Col18 was not found on DATA file.
+WARNING: Variable Col19 was not found on DATA file.
+WARNING: Variable Col20 was not found on DATA file.
+NOTE: FORCE is specified, so dropping/truncating will occur.
+NOTE: There were 8414807 observations read from the data set MS_WORK.PORTHOLD2006.
+NOTE: 8414807 observations added.
+NOTE: The data set MORN.PORTHOLD_MAIN_CLEAN has 63130973 observations and 20 variables.
+NOTE: PROCEDURE APPEND used (Total process time):
+      real time           1:41.25
+      cpu time            4.63 seconds
+      
+
+220        proc append base = morn.porthold_main_clean data = ms_work.porthold2005 force;
+
+NOTE: Appending MS_WORK.PORTHOLD2005 to MORN.PORTHOLD_MAIN_CLEAN.
+WARNING: Variable Col7 has different lengths on BASE and DATA files (BASE 79 DATA 75).
+WARNING: Variable Col8 not appended because of type mismatch.
+WARNING: Variable Col9 not appended because of type mismatch.
+WARNING: Variable Col10 not appended because of type mismatch.
+WARNING: Variable Col11 not appended because of type mismatch.
+WARNING: Variable Col12 has different lengths on BASE and DATA files (BASE 13 DATA 10).
+WARNING: Variable Col13 not appended because of type mismatch.
+WARNING: Variable Col14 not appended because of type mismatch.
+WARNING: Variable Col15 not appended because of type mismatch.
+WARNING: Variable Col16 was not found on DATA file.
+WARNING: Variable Col17 was not found on DATA file.
+WARNING: Variable Col18 was not found on DATA file.
+WARNING: Variable Col19 was not found on DATA file.
+WARNING: Variable Col20 was not found on DATA file.
+NOTE: FORCE is specified, so dropping/truncating will occur.
+NOTE: There were 7761305 observations read from the data set MS_WORK.PORTHOLD2005.
+NOTE: 7761305 observations added.
+NOTE: The data set MORN.PORTHOLD_MAIN_CLEAN has 70892278 observations and 20 variables.
+NOTE: PROCEDURE APPEND used (Total process time):
+      real time           1:37.05
+      cpu time            4.69 seconds
+      
+
+221        proc append base = morn.porthold_main_clean data = ms_work.porthold2004 force;
+
+NOTE: Appending MS_WORK.PORTHOLD2004 to MORN.PORTHOLD_MAIN_CLEAN.
+WARNING: Variable Col7 has different lengths on BASE and DATA files (BASE 79 DATA 75).
+WARNING: Variable Col8 not appended because of type mismatch.
+WARNING: Variable Col9 not appended because of type mismatch.
+WARNING: Variable Col10 not appended because of type mismatch.
+WARNING: Variable Col11 not appended because of type mismatch.
+WARNING: Variable Col12 has different lengths on BASE and DATA files (BASE 13 DATA 10).
+WARNING: Variable Col13 not appended because of type mismatch.
+WARNING: Variable Col14 not appended because of type mismatch.
+WARNING: Variable Col15 not appended because of type mismatch.
+WARNING: Variable Col16 was not found on DATA file.
+WARNING: Variable Col17 was not found on DATA file.
+WARNING: Variable Col18 was not found on DATA file.
+WARNING: Variable Col19 was not found on DATA file.
+WARNING: Variable Col20 was not found on DATA file.
+NOTE: FORCE is specified, so dropping/truncating will occur.
+NOTE: There were 7776550 observations read from the data set MS_WORK.PORTHOLD2004.
+NOTE: 7776550 observations added.
+NOTE: The data set MORN.PORTHOLD_MAIN_CLEAN has 78668828 observations and 20 variables.
+NOTE: PROCEDURE APPEND used (Total process time):
+      real time           1:28.95
+      cpu time            4.25 seconds
+      
+
+222        proc append base = morn.porthold_main_clean data = ms_work.porthold2003 force;
+
+NOTE: Appending MS_WORK.PORTHOLD2003 to MORN.PORTHOLD_MAIN_CLEAN.
+WARNING: Variable Col7 has different lengths on BASE and DATA files (BASE 79 DATA 75).
+WARNING: Variable Col8 not appended because of type mismatch.
+WARNING: Variable Col9 not appended because of type mismatch.
+WARNING: Variable Col10 not appended because of type mismatch.
+WARNING: Variable Col11 not appended because of type mismatch.
+WARNING: Variable Col12 has different lengths on BASE and DATA files (BASE 13 DATA 10).
+WARNING: Variable Col13 not appended because of type mismatch.
+WARNING: Variable Col14 not appended because of type mismatch.
+WARNING: Variable Col15 not appended because of type mismatch.
+WARNING: Variable Col16 was not found on DATA file.
+WARNING: Variable Col17 was not found on DATA file.
+WARNING: Variable Col18 was not found on DATA file.
+WARNING: Variable Col19 was not found on DATA file.
+WARNING: Variable Col20 was not found on DATA file.
+NOTE: FORCE is specified, so dropping/truncating will occur.
+NOTE: There were 7475607 observations read from the data set MS_WORK.PORTHOLD2003.
+NOTE: 7475607 observations added.
+NOTE: The data set MORN.PORTHOLD_MAIN_CLEAN has 86144435 observations and 20 variables.
+NOTE: PROCEDURE APPEND used (Total process time):
+      real time           1:29.33
+      cpu time            4.54 seconds
+      
+
+223        proc append base = morn.porthold_main_clean data = ms_work.porthold2002 force;
+224        
+225        * fix the others in excel and append later;
+226        
+227        
+NOTE: Appending MS_WORK.PORTHOLD2002 to MORN.PORTHOLD_MAIN_CLEAN.
+WARNING: Variable Col7 has different lengths on BASE and DATA files (BASE 79 DATA 65).
+WARNING: Variable Col8 not appended because of type mismatch.
+WARNING: Variable Col9 not appended because of type mismatch.
+WARNING: Variable Col10 not appended because of type mismatch.
+WARNING: Variable Col11 not appended because of type mismatch.
+WARNING: Variable Col12 has different lengths on BASE and DATA files (BASE 13 DATA 10).
+WARNING: Variable Col13 not appended because of type mismatch.
+WARNING: Variable Col14 not appended because of type mismatch.
+WARNING: Variable Col15 not appended because of type mismatch.
+WARNING: Variable Col16 was not found on DATA file.
+WARNING: Variable Col17 was not found on DATA file.
+WARNING: Variable Col18 was not found on DATA file.
+WARNING: Variable Col19 was not found on DATA file.
+WARNING: Variable Col20 was not found on DATA file.
+NOTE: FORCE is specified, so dropping/truncating will occur.
+NOTE: There were 6406751 observations read from the data set MS_WORK.PORTHOLD2002.
+NOTE: 6406751 observations added.
+NOTE: The data set MORN.PORTHOLD_MAIN_CLEAN has 92551186 observations and 20 variables.
+NOTE: PROCEDURE APPEND used (Total process time):
+      real time           1:19.62
+      cpu time            3.61 seconds
+      
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           1:52:41.84
+      cpu time            7:45.37
+      

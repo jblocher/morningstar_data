@@ -1,0 +1,17 @@
+// Author: Jesse Blocher
+// Date: July 2010
+// Project: None. Morningstar Data aggregation.
+// This file: conv_stat.stcmd
+// Desc: Converts in bulk all fund statistics, combines into a single files
+// Uses wildcards to convert all of them
+
+// Try this to fix problem with first line becoming variables.
+set ascii-rd-vnames   make-up
+set delimiter-rd      semicolon
+copy /largefs/jabloche/morningstar/stat*.txt /largefs/jabloche/morningstar/*.sas7bdat
+quit
+
+
+// this combines them all into one file first - not sure that is a good idea now
+// combine /largefs/jabloche/morningstar/stat*.txt /largefs/jabloche/morningstar/stat2.sas7bdat
+// quit
