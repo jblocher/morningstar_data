@@ -1,0 +1,3 @@
+This is a buch of SAS routines for cleaning, merging, and generating the original dataset purchased from Morningstar in March 2010.
+The final file is master_morn_holdings.sas7bdat.
+It is "clean" in that it should be clear of data import errors, but still needs a lot of work.
